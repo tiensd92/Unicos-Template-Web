@@ -23,7 +23,8 @@ extension UnicosStringExt on String {
       width: width,
       height: height,
       fit: fit,
-      color: color,
+      colorFilter:
+          color == null ? null : ColorFilter.mode(color, BlendMode.srcIn),
       package: 'unicos_template',
     );
   }
