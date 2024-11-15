@@ -8,9 +8,9 @@ class UnicosTable extends StatelessWidget {
   final List<String> labels;
   final UnicosPaginationViewModel? pagination;
   final List<UnicosTableRow> rows;
-  final double columnHeight;
   final Map<int, TableColumnWidth>? columnWidth;
   final double minWidth;
+  final bool isExpanded;
 
   const UnicosTable({
     super.key,
@@ -19,16 +19,14 @@ class UnicosTable extends StatelessWidget {
     this.pagination,
     this.columnWidth,
     this.minWidth = 950,
-    required this.columnHeight,
+    this.isExpanded = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final size = constraints.biggest;
-      final tableHeight = 64 + rows.length * (columnHeight + 30);
-      final parentHeght = size.height - (pagination == null ? 0 : 90);
-
+      
       final table = Container(
         decoration: BoxDecoration(
           color: const Color(0xFFFFFFFF),
@@ -40,19 +38,15 @@ class UnicosTable extends StatelessWidget {
             TableRow(
               children: labels
                   .map(
-                    (e) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      child: SizedBox(
-                        height: 34,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Text(
-                            e,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xFF464255),
-                            ),
+                    (e) => Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: Text(
+                          e,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF464255),
                           ),
                         ),
                       ),
@@ -81,19 +75,7 @@ class UnicosTable extends StatelessWidget {
                       child = const SizedBox.shrink();
                     }
 
-                    return Container(
-                      height: columnHeight,
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.all(15),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                            color: Color(0xFFECECEC),
-                          ),
-                        ),
-                      ),
-                      child: child,
-                    );
+                    return child;
                   },
                 ).toList(),
               ),
@@ -102,7 +84,7 @@ class UnicosTable extends StatelessWidget {
         ),
       );
 
-      if (tableHeight > parentHeght) {
+      if (isExpanded) {
         return Column(
           children: [
             Expanded(

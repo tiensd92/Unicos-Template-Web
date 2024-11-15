@@ -22,6 +22,7 @@ class UnicosLightTheme {
       },
     ),
     fontFamily: 'PopPins',
+    package: 'unicos_template',
     brightness: Brightness.light,
     scaffoldBackgroundColor: const Color(0xFFF6F6F6),
     cardTheme: UnicosCardTheme(),

@@ -50,7 +50,7 @@ class UnicosButton extends StatelessWidget {
   factory UnicosButton.labelIcon({
     required String label,
     double? width,
-    TextStyle stype = const TextStyle(
+    TextStyle style = const TextStyle(
       color: Color(0xFFFFFFFF),
       fontSize: 24,
       fontWeight: FontWeight.w500,
@@ -76,7 +76,7 @@ class UnicosButton extends StatelessWidget {
           const SizedBox(width: 10),
           Text(
             label,
-            style: stype,
+            style: style,
           )
         ],
       ),
@@ -85,7 +85,7 @@ class UnicosButton extends StatelessWidget {
 
   factory UnicosButton.label({
     required String label,
-    TextStyle stype = const TextStyle(
+    TextStyle style = const TextStyle(
       fontSize: 18,
       color: Color(0xFFFFFFFF),
       fontWeight: FontWeight.w500,
@@ -104,8 +104,39 @@ class UnicosButton extends StatelessWidget {
       padding: padding,
       child: Text(
         label,
-        style: stype,
+        style: style,
       ),
+    );
+  }
+
+  factory UnicosButton.labelIconSmall({
+    required String label,
+    double? width,
+    TextStyle style = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+      color: Colors.white,
+    ),
+    required Widget icon,
+    VoidCallback? onPressed,
+    Color color = const Color(0xFF00A389),
+    Color disableColor = const Color(0xFFB9BBBD),
+    double? height,
+    EdgeInsets padding = const EdgeInsets.symmetric(
+      vertical: 8,
+      horizontal: 16,
+    ),
+  }) {
+    return UnicosButton.labelIcon(
+      padding: padding,
+      width: width,
+      color: color,
+      disableColor: disableColor,
+      height: height,
+      icon: icon,
+      label: label,
+      onPressed: onPressed,
+      style: style,
     );
   }
 }

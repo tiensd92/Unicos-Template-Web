@@ -93,7 +93,8 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
   }
 
   void _listenerController() {
-    widget.state.didChange(_controller?.text);
+    // ignore: invalid_use_of_protected_member
+    widget.state.setValue(_controller?.text);
   }
 
   @override

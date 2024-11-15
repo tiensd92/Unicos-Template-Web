@@ -12,4 +12,7 @@ class UnicosCardTheme extends CardTheme {
         side: BorderSide.none,
         borderRadius: BorderRadius.circular(12),
       );
+
+  @override
+  Color? get color => Color(0xFFFFFFFF);
 }
