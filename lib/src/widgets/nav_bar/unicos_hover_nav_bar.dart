@@ -1,7 +1,7 @@
 part of 'nav_bar.dart';
 
 class UnicosHoverNavBar extends StatelessWidget {
-  const UnicosHoverNavBar({Key? key}) : super(key: key);
+  const UnicosHoverNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,10 +5,10 @@ class UnicosNavBar extends StatelessWidget {
   final Widget? header;
 
   const UnicosNavBar({
-    Key? key,
+    super.key,
     this.header,
     required this.items,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,8 @@ class _UnicosNavBarItems extends StatefulWidget {
   final List<UnicosNavBarItem> items;
 
   const _UnicosNavBarItems({
-    Key? key,
     required this.items,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _UnicosNavBarItemsState();

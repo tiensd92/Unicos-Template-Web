@@ -42,7 +42,6 @@ class _UnicosTextField extends StatefulWidget {
   final FocusNode? focusNode;
 
   const _UnicosTextField({
-    Key? key,
     this.controller,
     this.hintText,
     this.prefixIcon,
@@ -50,7 +49,7 @@ class _UnicosTextField extends StatefulWidget {
     this.label,
     this.focusNode,
     required this.state,
-  }) : super(key: key);
+  });
 
   @override
   State<_UnicosTextField> createState() => _UnicosTextFieldState();
@@ -94,7 +93,7 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
   }
 
   void _listenerController() {
-    widget.state.setValue(_controller?.text);
+    widget.state.didChange(_controller?.text);
   }
 
   @override

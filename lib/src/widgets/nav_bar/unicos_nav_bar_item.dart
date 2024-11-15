@@ -22,9 +22,8 @@ class _UnicosNavBarItem extends StatelessWidget {
     this.iconActive,
     required this.label,
     this.selected = false,
-    Key? key,
     this.onSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

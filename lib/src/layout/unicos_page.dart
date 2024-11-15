@@ -9,12 +9,12 @@ class UnicosPage extends StatelessWidget {
   final String titlePage;
 
   const UnicosPage({
-    Key? key,
+    super.key,
     required this.body,
     this.header,
     this.navigation,
     required this.titlePage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

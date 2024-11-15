@@ -9,11 +9,11 @@ class UnicosFormBody extends StatelessWidget {
   final Widget? header;
 
   const UnicosFormBody({
-    Key? key,
+    super.key,
     required this.children,
     this.footer,
     this.header,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

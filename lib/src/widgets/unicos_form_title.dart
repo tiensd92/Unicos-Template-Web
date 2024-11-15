@@ -7,11 +7,11 @@ class UnicosFormTitle extends StatelessWidget {
   final Widget? action;
 
   const UnicosFormTitle({
-    Key? key,
+    super.key,
     required this.title,
     this.description,
     this.action,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

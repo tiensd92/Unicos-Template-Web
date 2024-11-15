@@ -9,13 +9,13 @@ class UnicosTagField<T> extends StatelessWidget {
   final FocusNode? focusNode;
 
   const UnicosTagField({
-    Key? key,
+    super.key,
     required this.tags,
     this.hintText,
     this.label,
     this.focusNode,
     this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

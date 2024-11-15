@@ -7,11 +7,11 @@ class UnicosSingleBody extends StatelessWidget {
   final bool center;
 
   const UnicosSingleBody({
-    Key? key,
+    super.key,
     this.center = false,
     required this.child,
     this.maxWidth = 400,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
