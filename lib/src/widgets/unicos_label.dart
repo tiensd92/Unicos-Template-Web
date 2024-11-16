@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 class UnicosLabel extends StatelessWidget {
   final String lablel;
   final Widget? child;
+  final TextStyle textStyle;
 
   const UnicosLabel({
     super.key,
     required this.lablel,
     this.child,
+    this.textStyle = const TextStyle(
+      color: Color(0xFF464255),
+      fontSize: 12,
+    ),
   });
 
   @override
   Widget build(BuildContext context) {
     final label = Text(
       lablel,
-      style: const TextStyle(
-        color: Color(0xFF464255),
-        fontSize: 12,
-      ),
+      style: textStyle,
     );
 
     if (child != null) {
