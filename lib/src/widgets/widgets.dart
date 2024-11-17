@@ -11,3 +11,4 @@ export 'unicos_dropdown.dart';
 export 'unicos_label.dart';
 export 'unicos_tag_field.dart';
 export 'unicos_form_card.dart';
+export 'unicos_label_field.dart';

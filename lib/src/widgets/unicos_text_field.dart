@@ -9,6 +9,7 @@ class UnicosTextField extends FormField<String> {
   final Widget? prefixIcon;
   final String? label;
   final FocusNode? focusNode;
+  final bool readOnly;
 
   UnicosTextField({
     super.key,
@@ -19,6 +20,7 @@ class UnicosTextField extends FormField<String> {
     this.focusNode,
     super.validator,
     this.controller,
+    this.readOnly = false,
   }) : super(
           builder: (state) => _UnicosTextField(
             state: state,
@@ -28,6 +30,7 @@ class UnicosTextField extends FormField<String> {
             prefixIcon: prefixIcon,
             label: label,
             focusNode: focusNode,
+            readOnly: readOnly,
           ),
         );
 }
@@ -40,6 +43,7 @@ class _UnicosTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final String? label;
   final FocusNode? focusNode;
+  final bool readOnly;
 
   const _UnicosTextField({
     this.controller,
@@ -49,6 +53,7 @@ class _UnicosTextField extends StatefulWidget {
     this.label,
     this.focusNode,
     required this.state,
+    this.readOnly = false,
   });
 
   @override
@@ -155,6 +160,7 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
             controller: widget.controller,
             style: theme?.style,
             focusNode: _focusNode,
+            readOnly: widget.readOnly,
             obscureText: widget.obscureText,
             decoration: InputDecoration(
               hintText: widget.hintText,
