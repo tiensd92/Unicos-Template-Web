@@ -26,7 +26,7 @@ class UnicosTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final size = constraints.biggest;
-      
+
       final table = Container(
         decoration: BoxDecoration(
           color: const Color(0xFFFFFFFF),
@@ -34,20 +34,25 @@ class UnicosTable extends StatelessWidget {
         ),
         child: Table(
           columnWidths: columnWidth,
+          border: TableBorder(
+            horizontalInside: const BorderSide(
+              width: 1,
+              color: Color(0xFFECECEC),
+              style: BorderStyle.solid,
+            ),
+          ),
           children: [
             TableRow(
               children: labels
                   .map(
-                    (e) => Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Text(
-                          e,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF464255),
-                          ),
+                    (e) => Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Text(
+                        e,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF464255),
                         ),
                       ),
                     ),
@@ -61,16 +66,22 @@ class UnicosTable extends StatelessWidget {
                     Widget child;
 
                     if (e is String) {
-                      child = Text(
-                        e,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF464255),
-                          fontWeight: FontWeight.w500,
+                      child = Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(
+                          e,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFF464255),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       );
                     } else if (e is Widget) {
-                      child = e;
+                      child = Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: e,
+                      );
                     } else {
                       child = const SizedBox.shrink();
                     }
