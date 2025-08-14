@@ -114,7 +114,7 @@ class _SelectedBackground extends CustomPainter {
     path0.close();
 
     Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    paint0Fill.color = const Color(0xff28C76F).withOpacity(0.08);
+    paint0Fill.color = const Color(0xff28C76F).withValues(alpha: 0.08);
     canvas.drawPath(path0, paint0Fill);
 
     if (!hover) {
@@ -139,7 +139,7 @@ class _SelectedBackground extends CustomPainter {
       path1.close();
 
       Paint paint1Fill = Paint()..style = PaintingStyle.fill;
-      paint1Fill.color = const Color(0xff28C76F).withOpacity(1.0);
+      paint1Fill.color = const Color(0xff28C76F);
       canvas.drawPath(path1, paint1Fill);
     }
   }

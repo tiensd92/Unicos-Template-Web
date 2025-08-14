@@ -149,7 +149,7 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
             boxShadow: hasFocus
                 ? [
                     BoxShadow(
-                      color: const Color(0xFF000000).withOpacity(0.1),
+                      color: const Color(0xFF000000).withValues(alpha: 0.1),
                       offset: const Offset(0, 7),
                       blurRadius: 9,
                     )
