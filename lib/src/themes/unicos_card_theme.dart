@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class UnicosCardTheme extends CardTheme {
+class UnicosCardTheme extends CardThemeData {
   @override
   double? get elevation => 0;
 
