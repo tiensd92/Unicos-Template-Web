@@ -32,6 +32,7 @@ class UnicosIndicator extends StatelessWidget {
     isShowing = true;
     return showDialog(
       context: context,
+      barrierColor: Colors.transparent,
       barrierDismissible: false,
       builder: (ctx) => const Dialog(
         backgroundColor: Colors.transparent,
