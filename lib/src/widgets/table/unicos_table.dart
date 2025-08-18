@@ -1,22 +1,17 @@
-import 'package:flutter/material.dart';
-
-import '../pagination/pagination.dart';
-import 'unicos_table_row.dart';
+part of 'table.dart';
 
 class UnicosTable extends StatelessWidget {
   final List<String> labels;
   final UnicosPaginationViewModel? pagination;
   final List<UnicosTableRow> rows;
-  final Map<int, TableColumnWidth>? columnWidth;
-  final double minWidth;
+  final Map<int, TableColumnWidth>? columnWidths;
 
   const UnicosTable({
     super.key,
     required this.labels,
     required this.rows,
     this.pagination,
-    this.columnWidth,
-    this.minWidth = 950,
+    this.columnWidths,
   });
 
   @override
@@ -24,8 +19,26 @@ class UnicosTable extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       final size = constraints.biggest;
 
+      double minWidth = 0;
+
+      columnWidths?.entries.forEach((e) {
+        if (e.value is FixedColumnWidth) {
+          minWidth += (e.value as FixedColumnWidth).value;
+        }
+
+        if (e.value is FlexColumnWidth) {
+          minWidth += (e.value as FlexColumnWidth).value * 200;
+        }
+      });
+
+      final hasHorizontalScroll = size.width < minWidth;
+
       final table = Table(
-        columnWidths: columnWidth,
+        columnWidths: columnWidths?.map((k, v) => MapEntry(
+            k,
+            v is FlexColumnWidth && hasHorizontalScroll
+                ? FixedColumnWidth(v.value * 200)
+                : v)),
         border: TableBorder(
           horizontalInside: const BorderSide(
             width: 1,
@@ -110,14 +123,14 @@ class UnicosTable extends StatelessWidget {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          size.width < minWidth
+          hasHorizontalScroll
               ? Scrollbar(
                   trackVisibility: true,
                   thumbVisibility: true,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: SizedBox(
-                      width: size.width < minWidth ? minWidth : size.width,
+                      width: hasHorizontalScroll ? minWidth : size.width,
                       child: tableContainer,
                     ),
                   ),
@@ -136,5 +149,20 @@ class UnicosTable extends StatelessWidget {
         ],
       );
     });
+  }
+
+  factory UnicosTable.builder({
+    required List<String> labels,
+    UnicosPaginationViewModel? pagination,
+    required UnicosTableRow Function(int) itemBuilder,
+    required int itemCount,
+    Map<int, TableColumnWidth>? columnWidths,
+  }) {
+    return UnicosTable(
+      labels: labels,
+      rows: List.generate(itemCount, (index) => itemBuilder(index)),
+      pagination: pagination,
+      columnWidths: columnWidths,
+    );
   }
 }

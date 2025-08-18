@@ -50,13 +50,11 @@ class UnicosPage extends StatelessWidget {
                 child: Column(
                   children: [
                     header ?? const SizedBox.shrink(),
-                    Expanded(
-                      child: Flexible(
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 67),
-                            child: body,
-                          ),
+                    Flexible(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 67),
+                          child: body,
                         ),
                       ),
                     ),
