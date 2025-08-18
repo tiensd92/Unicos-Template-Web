@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
+import '../apprivals/apprivals.dart';
 import '../resources/resources.dart';
 
 class UnicosCheckBox extends StatelessWidget {
@@ -16,8 +16,8 @@ class UnicosCheckBox extends StatelessWidget {
         onChange?.call(!isChecked);
       },
       child: isChecked
-          ? SvgPicture.asset(UnicosDrawable.boxCheckedIcon)
-          : SvgPicture.asset(UnicosDrawable.boxUncheckIcon),
+          ? UnicosDrawable.boxCheckedIcon.svg()
+          : UnicosDrawable.boxUncheckIcon.svg(),
     );
   }
 }
