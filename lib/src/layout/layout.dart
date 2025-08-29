@@ -6,3 +6,4 @@ export 'reponsive_layout.dart';
 export 'dialog/dialog.dart';
 export 'unicos_form_body.dart';
 export 'menu_popup/menu_popup.dart';
+export 'unicos_grid_view.dart';

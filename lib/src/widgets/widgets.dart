@@ -13,3 +13,4 @@ export 'unicos_tag_field.dart';
 export 'unicos_form_card.dart';
 export 'unicos_label_field.dart';
 export 'unicos_check_box.dart';
+export 'unicos_text.dart';
