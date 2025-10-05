@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class UnicosGridView extends StatelessWidget {
   final int itemCount;
+  final double? height;
   final Widget Function(BuildContext, int) itemBuilder;
 
   const UnicosGridView({
     super.key,
     required this.itemBuilder,
     required this.itemCount,
+    this.height,
   });
 
   @override
@@ -21,6 +23,7 @@ class UnicosGridView extends StatelessWidget {
           maxCrossAxisExtent: 400,
           mainAxisSpacing: 40,
           crossAxisSpacing: 40,
+          mainAxisExtent: height,
         ),
         itemBuilder: itemBuilder,
         itemCount: itemCount,
@@ -30,12 +33,14 @@ class UnicosGridView extends StatelessWidget {
 
   factory UnicosGridView.builder(
       {Key? key,
+      double? height,
       required int itemCount,
       required Widget Function(BuildContext, int) itemBuilder}) {
     return UnicosGridView(
       key: key,
       itemCount: itemCount,
       itemBuilder: itemBuilder,
+      height: height,
     );
   }
 }

@@ -26,8 +26,11 @@ class UnicosText extends StatelessWidget {
     );
   }
 
-  factory UnicosText.medium(String text,
-      {double fontSize = 18, Color color = const Color(0xFF464255)}) {
+  factory UnicosText.medium(
+    String text, {
+    double fontSize = 18,
+    Color color = const Color(0xFF464255),
+  }) {
     return UnicosText(
       text,
       fontSize: fontSize,
