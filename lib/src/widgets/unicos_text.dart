@@ -38,4 +38,17 @@ class UnicosText extends StatelessWidget {
       fontWeight: FontWeight.w500,
     );
   }
+
+  factory UnicosText.regular(
+    String text, {
+    double fontSize = 14,
+    Color color = const Color(0xFFA2A2A2),
+  }) {
+    return UnicosText(
+      text,
+      fontSize: fontSize,
+      color: color,
+      fontWeight: FontWeight.w400,
+    );
+  }
 }
