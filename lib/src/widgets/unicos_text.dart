@@ -5,6 +5,7 @@ class UnicosText extends StatelessWidget {
   final double? fontSize;
   final Color? color;
   final FontWeight? fontWeight;
+  final int? maxLines;
 
   const UnicosText(
     this.text, {
@@ -12,12 +13,15 @@ class UnicosText extends StatelessWidget {
     this.fontSize,
     this.color,
     this.fontWeight,
+    this.maxLines,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: maxLines,
+      overflow: maxLines == null ? null : TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: fontSize,
         color: color,
@@ -30,12 +34,14 @@ class UnicosText extends StatelessWidget {
     String text, {
     double fontSize = 18,
     Color color = const Color(0xFF464255),
+    int? maxLines,
   }) {
     return UnicosText(
       text,
       fontSize: fontSize,
       color: color,
       fontWeight: FontWeight.w500,
+      maxLines: maxLines,
     );
   }
 
@@ -43,12 +49,14 @@ class UnicosText extends StatelessWidget {
     String text, {
     double fontSize = 14,
     Color color = const Color(0xFFA2A2A2),
+    int? maxLines,
   }) {
     return UnicosText(
       text,
       fontSize: fontSize,
       color: color,
       fontWeight: FontWeight.w400,
+      maxLines: maxLines,
     );
   }
 }

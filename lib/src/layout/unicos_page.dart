@@ -21,6 +21,7 @@ class UnicosPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final double scale = size.width >= 600 ? 1 : size.width / 600;
     final isMobile = size.width <= 900;
+    final isMedium = size.width > 900 && size.width <= 1200;
     final double height = size.height / scale;
 
     return Title(
@@ -29,7 +30,7 @@ class UnicosPage extends StatelessWidget {
       child: Scaffold(
         drawer: navigation == null
             ? null
-            : (isMobile
+            : (isMobile || isMedium
                 ? ReponsiveLayout(
                     fixedWidth: 348,
                     backgroundColor: const Color(0xFFFFFFFF),
@@ -39,7 +40,7 @@ class UnicosPage extends StatelessWidget {
         body: ReponsiveLayout(
           child: Row(
             children: [
-              navigation == null || isMobile
+              navigation == null || isMobile || isMedium
                   ? const SizedBox.shrink()
                   : SizedBox(
                       width: 348,
