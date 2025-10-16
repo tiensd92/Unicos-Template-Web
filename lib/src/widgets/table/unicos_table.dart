@@ -2,9 +2,10 @@ part of 'table.dart';
 
 class UnicosTable extends StatelessWidget {
   final List<String> labels;
-  final UnicosPaginationViewModel? pagination;
+  final UnicosPaginationUIModel? pagination;
   final List<UnicosTableRow> rows;
   final Map<int, TableColumnWidth>? columnWidths;
+  final ValueChanged<int>? onToPage;
 
   const UnicosTable({
     super.key,
@@ -12,6 +13,7 @@ class UnicosTable extends StatelessWidget {
     required this.rows,
     this.pagination,
     this.columnWidths,
+    this.onToPage,
   });
 
   @override
@@ -138,13 +140,14 @@ class UnicosTable extends StatelessWidget {
                   ),
                 )
               : tableContainer,
-          if (pagination != null)
+          if (pagination != null && rows.isNotEmpty)
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: const EdgeInsets.only(top: 40),
                 child: UnicosPagination(
-                  viewModel: pagination!,
+                  onToPage: onToPage,
+                  model: pagination!,
                 ),
               ),
             ),
@@ -155,12 +158,14 @@ class UnicosTable extends StatelessWidget {
 
   factory UnicosTable.builder({
     required List<String> labels,
-    UnicosPaginationViewModel? pagination,
+    UnicosPaginationUIModel? pagination,
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
     Map<int, TableColumnWidth>? columnWidths,
+    final ValueChanged<int>? onToPage,
   }) {
     return UnicosTable(
+      onToPage: onToPage,
       labels: labels,
       rows: List.generate(itemCount, (index) => itemBuilder(index)),
       pagination: pagination,

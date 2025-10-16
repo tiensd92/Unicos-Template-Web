@@ -4,7 +4,7 @@ export 'unicos_card.dart';
 export 'unicos_text_field.dart';
 export 'toast/toast.dart';
 export 'unicos_indicator.dart';
-export 'pagination/pagination.dart';
+export 'pagination/unicos_pagination.dart';
 export 'table/table.dart';
 export 'unicos_form_title.dart';
 export 'unicos_dropdown.dart';

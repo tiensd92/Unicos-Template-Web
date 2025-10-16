@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:unicos_template/unicos_template.dart';
 
+part 'unicos_pagination.uimodel.dart';
+
 class UnicosPagination extends StatelessWidget {
-  final UnicosPaginationViewModel viewModel;
+  final UnicosPaginationUIModel model;
+  final ValueChanged<int>? onToPage;
 
   const UnicosPagination({
     super.key,
-    required this.viewModel,
+    required this.model,
+    this.onToPage,
   });
 
   @override
@@ -35,11 +39,10 @@ class UnicosPagination extends StatelessWidget {
             ),
           ),
           child: Row(
-            children:
-                List.generate(viewModel.end - viewModel.start + 1, (index) {
-              final value = viewModel.start + index;
+            children: List.generate(model.end - model.start + 1, (index) {
+              final value = model.start + index;
 
-              if (value == viewModel.current) {
+              if (value == model.current) {
                 return Container(
                   width: 50,
                   height: 50,
@@ -60,7 +63,11 @@ class UnicosPagination extends StatelessWidget {
               }
 
               return InkWell(
-                onTap: () {},
+                onTap: onToPage != null && value != model.current
+                    ? () {
+                        onToPage?.call(value);
+                      }
+                    : null,
                 child: SizedBox(
                   width: 50,
                   height: 50,
