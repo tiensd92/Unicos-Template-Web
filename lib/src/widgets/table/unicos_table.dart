@@ -55,12 +55,16 @@ class UnicosTable extends StatelessWidget {
                   (e) => Padding(
                     padding: const EdgeInsets.all(15),
                     child: Center(
-                      child: Text(
-                        e,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF464255),
+                      child: Tooltip(
+                        message: e,
+                        child: Text(
+                          e,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF464255),
+                          ),
                         ),
                       ),
                     ),
