@@ -9,7 +9,7 @@ class UnicosCard extends StatelessWidget {
   const UnicosCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(34),
+    this.padding = const EdgeInsets.all(24),
     this.borderColor,
     this.hasScroll = false,
   });
@@ -19,6 +19,7 @@ class UnicosCard extends StatelessWidget {
     final theme = Theme.of(context).cardTheme;
 
     return Card(
+      elevation: 0,
       shape: borderColor != null
           ? (theme.shape as RoundedRectangleBorder).copyWith(
               side: BorderSide(

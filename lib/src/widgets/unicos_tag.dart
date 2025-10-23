@@ -48,6 +48,22 @@ class UnicosTag extends StatelessWidget {
     );
   }
 
+  factory UnicosTag.small({
+    Key? key,
+    required Color color,
+    required String text,
+    final VoidCallback? onTap,
+  }) =>
+      UnicosTag(
+        key: key,
+        text: text,
+        fontSize: 12,
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+        color: color.withValues(alpha: 0.15),
+        textColor: color,
+        onTap: onTap,
+      );
+
   factory UnicosTag.red({
     Key? key,
     required String text,

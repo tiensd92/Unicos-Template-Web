@@ -45,6 +45,21 @@ class UnicosText extends StatelessWidget {
     );
   }
 
+  factory UnicosText.semibold(
+    String text, {
+    double fontSize = 18,
+    Color color = const Color(0xFF464255),
+    int? maxLines,
+  }) {
+    return UnicosText(
+      text,
+      fontSize: fontSize,
+      color: color,
+      fontWeight: FontWeight.w600,
+      maxLines: maxLines,
+    );
+  }
+
   factory UnicosText.regular(
     String text, {
     double fontSize = 14,
