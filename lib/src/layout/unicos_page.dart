@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/widgets.dart';
 import 'reponsive_layout.dart';
 
 class UnicosPage extends StatelessWidget {
@@ -7,6 +8,7 @@ class UnicosPage extends StatelessWidget {
   final Widget? header;
   final Widget? navigation;
   final String titlePage;
+  final UnicosBreadCrumb? breadCrumb;
 
   const UnicosPage({
     super.key,
@@ -14,6 +16,7 @@ class UnicosPage extends StatelessWidget {
     this.header,
     this.navigation,
     required this.titlePage,
+    this.breadCrumb,
   });
 
   @override
@@ -31,26 +34,23 @@ class UnicosPage extends StatelessWidget {
         drawer: navigation == null
             ? null
             : (isMobile || isMedium
-                ? ReponsiveLayout(
-                    fixedWidth: 348,
-                    backgroundColor: const Color(0xFFFFFFFF),
-                    child: navigation!,
-                  )
-                : null),
+                  ? ReponsiveLayout(
+                      fixedWidth: 348,
+                      backgroundColor: const Color(0xFFFFFFFF),
+                      child: navigation!,
+                    )
+                  : null),
         body: ReponsiveLayout(
           child: Row(
             children: [
               navigation == null || isMobile || isMedium
                   ? const SizedBox.shrink()
-                  : SizedBox(
-                      width: 348,
-                      height: height,
-                      child: navigation,
-                    ),
+                  : SizedBox(width: 348, height: height, child: navigation),
               Expanded(
                 child: Column(
                   children: [
-                    header ?? const SizedBox.shrink(),
+                    ?header,
+                    ?breadCrumb,
                     Flexible(
                       child: SingleChildScrollView(
                         child: Padding(
