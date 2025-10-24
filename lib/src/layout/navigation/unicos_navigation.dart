@@ -28,7 +28,7 @@ class UnicosNavigation extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 itemBuilder: (_, index) => items[index],
-                separatorBuilder: (_, __) => const SizedBox(height: 10),
+                separatorBuilder: (_, _) => const SizedBox(height: 10),
                 itemCount: items.length,
               ),
             ),

@@ -9,6 +9,7 @@ class UnicosPage extends StatelessWidget {
   final Widget? navigation;
   final String titlePage;
   final UnicosBreadCrumb? breadCrumb;
+  final EdgeInsets padding;
 
   const UnicosPage({
     super.key,
@@ -17,6 +18,7 @@ class UnicosPage extends StatelessWidget {
     this.navigation,
     required this.titlePage,
     this.breadCrumb,
+    this.padding = const EdgeInsets.symmetric(horizontal: 24),
   });
 
   @override
@@ -53,10 +55,7 @@ class UnicosPage extends StatelessWidget {
                     ?breadCrumb,
                     Flexible(
                       child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 67),
-                          child: body,
-                        ),
+                        child: Padding(padding: padding, child: body),
                       ),
                     ),
                   ],
