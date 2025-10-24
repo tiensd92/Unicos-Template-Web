@@ -7,4 +7,5 @@ class UnicosDrawable {
   static const dropDownIcon = '$_pathIcon/ic_dropdown.svg';
   static const boxCheckedIcon = '$_pathIcon/box_checked.svg';
   static const boxUncheckIcon = '$_pathIcon/box_uncheck.svg';
+  static const arrowRightIcon = '$_pathIcon/arrow_right.svg';
 }
