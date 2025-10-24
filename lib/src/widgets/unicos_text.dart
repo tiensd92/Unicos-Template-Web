@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'unicos_card.dart';
+
 class UnicosText extends StatelessWidget {
   final String text;
   final double? fontSize;
@@ -30,18 +32,22 @@ class UnicosText extends StatelessWidget {
     );
   }
 
-  factory UnicosText.medium(
-    String text, {
-    double fontSize = 18,
-    Color color = const Color(0xFF464255),
-    int? maxLines,
-  }) {
+  factory UnicosText.title(String text) {
     return UnicosText(
       text,
-      fontSize: fontSize,
-      color: color,
+      fontSize: 18,
+      color: const Color(0xFF464255),
       fontWeight: FontWeight.w500,
-      maxLines: maxLines,
+      maxLines: 2,
+    );
+  }
+
+  factory UnicosText.medium(String text) {
+    return UnicosText(
+      text,
+      fontSize: 14,
+      color: const Color(0xFF464255),
+      fontWeight: FontWeight.w500,
     );
   }
 
@@ -72,6 +78,43 @@ class UnicosText extends StatelessWidget {
       color: color,
       fontWeight: FontWeight.w400,
       maxLines: maxLines,
+    );
+  }
+
+  static Widget hight(String text, {String? hightText}) {
+    return Tooltip(
+      message: hightText,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+          color: Color(0xFFE3E7EF),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: UnicosText(
+          text,
+          fontSize: 14,
+          color: const Color(0xFF464255),
+          fontWeight: FontWeight.w500,
+          maxLines: 1,
+        ),
+      ),
+    );
+  }
+
+  static Widget quocte(String text) {
+    return UnicosCard(
+      borderColor: Color(0xFFE5E7EB),
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 13),
+      color: Color(0xFFFFFFFF),
+      child: UnicosText.regular(fontSize: 18, color: Color(0xFF111827), text),
+    );
+  }
+
+  static Widget label({required String label, String? value}) {
+    return Row(
+      spacing: 8,
+      mainAxisSize: MainAxisSize.min,
+      children: [UnicosText.title(label), UnicosText.quocte(value ?? '')],
     );
   }
 }
