@@ -101,20 +101,40 @@ class UnicosText extends StatelessWidget {
     );
   }
 
-  static Widget quocte(String text) {
+  static Widget quocte(String text, {Widget? icon}) {
+    final value = UnicosText.regular(
+      fontSize: 18,
+      color: Color(0xFF111827),
+      text,
+    );
+
+    Widget child = icon == null
+        ? value
+        : Row(
+            children: [
+              Expanded(child: value),
+              icon,
+            ],
+          );
+
     return UnicosCard(
+      borderRadius: BorderRadius.circular(8),
       borderColor: Color(0xFFE5E7EB),
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 13),
-      color: Color(0xFFFFFFFF),
-      child: UnicosText.regular(fontSize: 18, color: Color(0xFF111827), text),
+      color: Color(0xFFF9FAFB),
+      child: child,
     );
   }
 
-  static Widget label({required String label, String? value}) {
-    return Row(
+  static Widget label({required String label, String? value, Widget? icon}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
       mainAxisSize: MainAxisSize.min,
-      children: [UnicosText.title(label), UnicosText.quocte(value ?? '')],
+      children: [
+        UnicosText.title(label),
+        UnicosText.quocte(value ?? '', icon: icon),
+      ],
     );
   }
 }

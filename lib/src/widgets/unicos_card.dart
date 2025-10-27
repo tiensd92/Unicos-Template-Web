@@ -5,7 +5,8 @@ class UnicosCard extends StatelessWidget {
   final Color? borderColor;
   final EdgeInsets padding;
   final bool hasScroll;
-  final Color color;
+  final Color? color;
+  final BorderRadiusGeometry? borderRadius;
 
   const UnicosCard({
     super.key,
@@ -13,7 +14,8 @@ class UnicosCard extends StatelessWidget {
     this.padding = const EdgeInsets.all(24),
     this.borderColor,
     this.hasScroll = false,
-    this.color = const Color(0xFFFFFFFF),
+    this.color,
+    this.borderRadius,
   });
 
   @override
@@ -26,6 +28,7 @@ class UnicosCard extends StatelessWidget {
       shape: borderColor != null
           ? (theme.shape as RoundedRectangleBorder).copyWith(
               side: BorderSide(color: borderColor!),
+              borderRadius: borderRadius,
             )
           : theme.shape,
       child: Padding(
