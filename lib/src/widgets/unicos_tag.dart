@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../resources/resources.dart';
+
 class UnicosTag extends StatelessWidget {
   final String text;
   final Color color;
   final Color textColor;
-  final VoidCallback? onTap;
   final double fontSize;
   final EdgeInsets padding;
 
@@ -13,14 +14,13 @@ class UnicosTag extends StatelessWidget {
     required this.text,
     required this.color,
     required this.textColor,
-    this.onTap,
     this.fontSize = 18,
     this.padding = const EdgeInsets.symmetric(vertical: 6, horizontal: 18),
   });
 
   @override
   Widget build(BuildContext context) {
-    final child = Container(
+    return Container(
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(200),
@@ -37,97 +37,30 @@ class UnicosTag extends StatelessWidget {
         ),
       ),
     );
-
-    if (onTap == null) {
-      return child;
-    }
-
-    return GestureDetector(
-      onTap: onTap,
-      child: child,
-    );
   }
 
   factory UnicosTag.small({
     Key? key,
     required Color color,
     required String text,
-    final VoidCallback? onTap,
-  }) =>
-      UnicosTag(
-        key: key,
-        text: text,
-        fontSize: 12,
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-        color: color.withValues(alpha: 0.15),
-        textColor: color,
-        onTap: onTap,
-      );
+  }) => UnicosTag(
+    key: key,
+    text: text,
+    fontSize: 12,
+    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+    color: color.withValues(alpha: 0.15),
+    textColor: color,
+  );
 
-  factory UnicosTag.red({
-    Key? key,
-    required String text,
-    final VoidCallback? onTap,
-  }) =>
-      UnicosTag(
-        key: key,
-        text: text,
-        color: Color(0xFFFF3F40),
-        textColor: Color(0xFFFFFFFF),
-        onTap: onTap,
-      );
+  factory UnicosTag.smallTetirary(String text, {Key? key}) =>
+      UnicosTag.small(key: key, text: text, color: UnicosColor.tetirary);
 
-  factory UnicosTag.gray({
-    Key? key,
-    required String text,
-    final VoidCallback? onTap,
-  }) =>
-      UnicosTag(
-        key: key,
-        text: text,
-        color: Color(0xFFB9BBBD),
-        textColor: Color(0xFFFFFFFF),
-        onTap: onTap,
-      );
+  factory UnicosTag.smalGrey(String text, {Key? key}) =>
+      UnicosTag.small(key: key, text: text, color: UnicosColor.darkGrey4);
 
-  factory UnicosTag.green({
-    Key? key,
-    required String text,
-    final VoidCallback? onTap,
-  }) =>
-      UnicosTag(
-        key: key,
-        text: text,
-        color: Color(0xFF00A389),
-        textColor: Color(0xFFFFFFFF),
-        onTap: onTap,
-      );
+  factory UnicosTag.smallSuccess(String text, {Key? key}) =>
+      UnicosTag.small(key: key, text: text, color: UnicosColor.success);
 
-  factory UnicosTag.violet({
-    Key? key,
-    required String text,
-    final VoidCallback? onTap,
-  }) =>
-      UnicosTag(
-        key: key,
-        text: text,
-        color: Color(0xFFAB54DB),
-        textColor: Color(0xFFFFFFFF),
-        onTap: onTap,
-      );
-
-  factory UnicosTag.smallGreen({
-    Key? key,
-    required String text,
-    final VoidCallback? onTap,
-  }) =>
-      UnicosTag(
-        key: key,
-        text: text,
-        fontSize: 12,
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-        color: Color(0xFF00A389),
-        textColor: Color(0xFFFFFFFF),
-        onTap: onTap,
-      );
+  factory UnicosTag.smallQuatinery(String text, {Key? key}) =>
+      UnicosTag.small(key: key, text: text, color: UnicosColor.quatinery);
 }

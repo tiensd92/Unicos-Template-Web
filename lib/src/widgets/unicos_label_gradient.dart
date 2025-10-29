@@ -20,7 +20,7 @@ class UnicosLabelGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(4),
+      padding: EdgeInsets.all(8),
       width: dimension,
       height: dimension,
       decoration: BoxDecoration(
