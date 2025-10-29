@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class UnicosGridView extends StatelessWidget {
   final int itemCount;
   final double? height;
+  final double? maxHeight;
   final Widget Function(BuildContext, int) itemBuilder;
 
   const UnicosGridView({
@@ -10,11 +13,12 @@ class UnicosGridView extends StatelessWidget {
     required this.itemBuilder,
     required this.itemCount,
     this.height,
+    this.maxHeight,
   });
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, contrainst) {
+    if (maxHeight == null) {
       return GridView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -28,19 +32,45 @@ class UnicosGridView extends StatelessWidget {
         itemBuilder: itemBuilder,
         itemCount: itemCount,
       );
-    });
+    }
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        int crossAxisCount = (width / (400 + 40)).ceil();
+        crossAxisCount = max(1, crossAxisCount);
+        final widthCrossAxis =
+            (width - (crossAxisCount - 1) * 40) ~/ crossAxisCount;
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 400,
+            mainAxisSpacing: 40,
+            crossAxisSpacing: 40,
+            mainAxisExtent: widthCrossAxis < 300 ? maxHeight : height,
+          ),
+          itemBuilder: itemBuilder,
+          itemCount: itemCount,
+        );
+      },
+    );
   }
 
-  factory UnicosGridView.builder(
-      {Key? key,
-      double? height,
-      required int itemCount,
-      required Widget Function(BuildContext, int) itemBuilder}) {
+  factory UnicosGridView.builder({
+    Key? key,
+    double? height,
+    double? maxHeight,
+    required int itemCount,
+    required Widget Function(BuildContext, int) itemBuilder,
+  }) {
     return UnicosGridView(
       key: key,
       itemCount: itemCount,
       itemBuilder: itemBuilder,
       height: height,
+      maxHeight: maxHeight,
     );
   }
 }

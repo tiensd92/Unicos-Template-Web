@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../resources/resources.dart';
 import 'unicos_card.dart';
 
 class UnicosText extends StatelessWidget {
@@ -8,6 +9,7 @@ class UnicosText extends StatelessWidget {
   final Color? color;
   final FontWeight? fontWeight;
   final int? maxLines;
+  final String? toolTipText;
 
   const UnicosText(
     this.text, {
@@ -16,11 +18,12 @@ class UnicosText extends StatelessWidget {
     this.color,
     this.fontWeight,
     this.maxLines,
+    this.toolTipText,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text(
+    final textWidget = Text(
       text,
       maxLines: maxLines,
       overflow: maxLines == null ? null : TextOverflow.ellipsis,
@@ -30,52 +33,89 @@ class UnicosText extends StatelessWidget {
         fontWeight: fontWeight,
       ),
     );
+
+    if (toolTipText?.isNotEmpty != true) {
+      return textWidget;
+    }
+
+    return Tooltip(message: toolTipText, child: textWidget);
   }
 
-  factory UnicosText.title(String text) {
-    return UnicosText(
-      text,
-      fontSize: 18,
-      color: const Color(0xFF464255),
-      fontWeight: FontWeight.w500,
-      maxLines: 2,
-    );
-  }
-
-  factory UnicosText.medium(String text) {
-    return UnicosText(
-      text,
-      fontSize: 14,
-      color: const Color(0xFF464255),
-      fontWeight: FontWeight.w500,
-    );
-  }
-
-  factory UnicosText.semibold(
+  factory UnicosText.medium18(
     String text, {
-    double fontSize = 18,
-    Color color = const Color(0xFF464255),
+    String? toolTipText,
+    Color color = UnicosColor.darkBody,
     int? maxLines,
   }) {
     return UnicosText(
       text,
-      fontSize: fontSize,
+      fontSize: 18,
+      toolTipText: toolTipText,
       color: color,
+      fontWeight: FontWeight.w500,
+      maxLines: maxLines,
+    );
+  }
+
+  factory UnicosText.medium14(
+    String text, {
+    String? toolTipText,
+    Color color = UnicosColor.darkBody,
+    int? maxLines,
+  }) {
+    return UnicosText(
+      text,
+      fontSize: 14,
+      toolTipText: toolTipText,
+      color: color,
+      fontWeight: FontWeight.w500,
+      maxLines: maxLines,
+    );
+  }
+
+  factory UnicosText.semibold18(
+    String text, {
+    Color color = UnicosColor.darkBody,
+    int? maxLines,
+    String? toolTipText,
+  }) {
+    return UnicosText(
+      text,
+      fontSize: 18,
+      color: color,
+      toolTipText: toolTipText,
       fontWeight: FontWeight.w600,
       maxLines: maxLines,
     );
   }
 
-  factory UnicosText.regular(
+  factory UnicosText.regular14(
     String text, {
-    double fontSize = 14,
-    Color color = const Color(0xFFA2A2A2),
+    Color color = UnicosColor.darkBody,
     int? maxLines,
+    String? toolTipText,
   }) {
     return UnicosText(
       text,
-      fontSize: fontSize,
+      fontSize: 14,
       color: color,
+      toolTipText: toolTipText,
+      fontWeight: FontWeight.w400,
+      maxLines: maxLines,
+    );
+  }
+
+  factory UnicosText.regular40(
+    String text, {
+    Color color = UnicosColor.darkBody,
+    int? maxLines,
+    String? toolTipText,
+  }) {
+    return UnicosText(
+      text,
+      fontSize: 40,
+      color: color,
+      toolTipText: toolTipText,
       fontWeight: FontWeight.w400,
       maxLines: maxLines,
     );
@@ -102,11 +142,7 @@ class UnicosText extends StatelessWidget {
   }
 
   static Widget quocte(String text, {Widget? icon}) {
-    final value = UnicosText.regular(
-      fontSize: 18,
-      color: Color(0xFF111827),
-      text,
-    );
+    final value = UnicosText.regular14(color: Color(0xFF111827), text);
 
     Widget child = icon == null
         ? value
@@ -132,7 +168,7 @@ class UnicosText extends StatelessWidget {
       spacing: 8,
       mainAxisSize: MainAxisSize.min,
       children: [
-        UnicosText.title(label),
+        UnicosText.medium18(label),
         UnicosText.quocte(value ?? '', icon: icon),
       ],
     );
