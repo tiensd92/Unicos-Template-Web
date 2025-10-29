@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
 
-class UnicosFormBody extends StatelessWidget {
+class UnicosForm extends StatelessWidget {
   final List<Widget> children;
   final Widget? footer;
   final Widget? header;
 
-  const UnicosFormBody({
+  const UnicosForm({
     super.key,
     required this.children,
     this.footer,
