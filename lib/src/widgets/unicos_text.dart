@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../resources/resources.dart';
-import 'unicos_card.dart';
 
 class UnicosText extends StatelessWidget {
   final String text;
@@ -57,6 +56,22 @@ class UnicosText extends StatelessWidget {
     );
   }
 
+  factory UnicosText.medium24(
+    String text, {
+    String? toolTipText,
+    Color color = UnicosColor.darkBody,
+    int? maxLines,
+  }) {
+    return UnicosText(
+      text,
+      fontSize: 24,
+      toolTipText: toolTipText,
+      color: color,
+      fontWeight: FontWeight.w500,
+      maxLines: maxLines,
+    );
+  }
+
   factory UnicosText.medium14(
     String text, {
     String? toolTipText,
@@ -65,7 +80,7 @@ class UnicosText extends StatelessWidget {
   }) {
     return UnicosText(
       text,
-      fontSize: 14,
+      fontSize: 24,
       toolTipText: toolTipText,
       color: color,
       fontWeight: FontWeight.w500,
@@ -138,39 +153,6 @@ class UnicosText extends StatelessWidget {
           maxLines: 1,
         ),
       ),
-    );
-  }
-
-  static Widget quocte(String text, {Widget? icon}) {
-    final value = UnicosText.regular14(color: Color(0xFF111827), text);
-
-    Widget child = icon == null
-        ? value
-        : Row(
-            children: [
-              Expanded(child: value),
-              icon,
-            ],
-          );
-
-    return UnicosCard(
-      borderRadius: BorderRadius.circular(8),
-      borderColor: Color(0xFFE5E7EB),
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 13),
-      color: Color(0xFFF9FAFB),
-      child: child,
-    );
-  }
-
-  static Widget label({required String label, String? value, Widget? icon}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 8,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        UnicosText.medium18(label),
-        UnicosText.quocte(value ?? '', icon: icon),
-      ],
     );
   }
 }

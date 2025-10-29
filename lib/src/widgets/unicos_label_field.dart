@@ -1,72 +1,67 @@
 import 'package:flutter/material.dart';
 
+import '../resources/resources.dart';
 import '../themes/themes.dart';
+import 'unicos_text.dart';
 
 class UnicosLabelField extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;
-  final String? label;
+  final Widget? suffixIcon;
+  final String label;
   final String? value;
+  final Color backgroundColor;
 
-  const UnicosLabelField({
+  const UnicosLabelField(
+    this.label, {
     super.key,
     this.hintText,
     this.prefixIcon,
-    this.label,
+    this.suffixIcon,
     this.value,
+    this.backgroundColor = UnicosColor.dartGrey1,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<UnicosTextFiledTheme>();
 
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 39,
-      ),
-      decoration: BoxDecoration(
-        color: Color(0xFFF6F6F6),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Visibility(
-            visible: label?.isNotEmpty ?? false,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Text(
-                label ?? '',
-                style: const TextStyle(
-                  color: Color(0xFFA2A2A2),
-                  fontSize: 12,
-                ),
-              ),
-            ),
+    return Column(
+      spacing: 15,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(color: UnicosColor.darkBody, fontSize: 12),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 46),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(12),
           ),
-          Row(
+          child: Row(
             children: [
               if (prefixIcon != null)
                 Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: const EdgeInsets.only(right: 24),
                   child: prefixIcon,
                 ),
-              if (value != null)
-                value?.isNotEmpty == true
-                    ? Text(
-                        value ?? '',
-                        style: theme?.style,
-                      )
-                    : Text(
-                        value ?? '',
-                        style: theme?.hintStyle,
-                      )
+              Expanded(
+                child: value?.isNotEmpty == true
+                    ? UnicosText.medium14(value ?? '', maxLines: 1)
+                    : Text(value ?? '', style: theme?.hintStyle),
+              ),
+              if (suffixIcon != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: suffixIcon,
+                ),
             ],
-          )
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 }
