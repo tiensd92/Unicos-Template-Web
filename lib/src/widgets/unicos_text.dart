@@ -80,7 +80,7 @@ class UnicosText extends StatelessWidget {
   }) {
     return UnicosText(
       text,
-      fontSize: 24,
+      fontSize: 14,
       toolTipText: toolTipText,
       color: color,
       fontWeight: FontWeight.w500,

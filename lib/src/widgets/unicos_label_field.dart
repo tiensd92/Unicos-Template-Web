@@ -37,10 +37,10 @@ class UnicosLabelField extends StatelessWidget {
           style: const TextStyle(color: UnicosColor.darkBody, fontSize: 12),
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 46),
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
