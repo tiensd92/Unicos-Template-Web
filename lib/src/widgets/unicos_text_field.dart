@@ -7,6 +7,7 @@ class UnicosTextField extends FormField<String> {
   final String? hintText;
   final bool obscureText;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final String? label;
   final FocusNode? focusNode;
   final bool readOnly;
@@ -16,23 +17,25 @@ class UnicosTextField extends FormField<String> {
     this.hintText,
     this.obscureText = false,
     this.prefixIcon,
+    this.suffixIcon,
     this.label,
     this.focusNode,
     super.validator,
     this.controller,
     this.readOnly = false,
   }) : super(
-          builder: (state) => _UnicosTextField(
-            state: state,
-            controller: controller,
-            hintText: hintText,
-            obscureText: obscureText,
-            prefixIcon: prefixIcon,
-            label: label,
-            focusNode: focusNode,
-            readOnly: readOnly,
-          ),
-        );
+         builder: (state) => _UnicosTextField(
+           state: state,
+           controller: controller,
+           hintText: hintText,
+           obscureText: obscureText,
+           prefixIcon: prefixIcon,
+           suffixIcon: suffixIcon,
+           label: label,
+           focusNode: focusNode,
+           readOnly: readOnly,
+         ),
+       );
 }
 
 class _UnicosTextField extends StatefulWidget {
@@ -41,6 +44,7 @@ class _UnicosTextField extends StatefulWidget {
   final String? hintText;
   final bool obscureText;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final String? label;
   final FocusNode? focusNode;
   final bool readOnly;
@@ -49,6 +53,7 @@ class _UnicosTextField extends StatefulWidget {
     this.controller,
     this.hintText,
     this.prefixIcon,
+    this.suffixIcon,
     this.obscureText = false,
     this.label,
     this.focusNode,
@@ -108,21 +113,15 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
     final errorText = widget.state.errorText;
     final hasError = errorText?.isNotEmpty ?? false;
     final errorBorder = OutlineInputBorder(
-      borderSide: BorderSide(
-        color: theme?.errorBorderColor ?? Colors.black,
-      ),
+      borderSide: BorderSide(color: theme?.errorBorderColor ?? Colors.black),
       borderRadius: BorderRadius.circular(8),
     );
     final focusedBorder = OutlineInputBorder(
-      borderSide: BorderSide(
-        color: theme?.focusedBorderColor ?? Colors.black,
-      ),
+      borderSide: BorderSide(color: theme?.focusedBorderColor ?? Colors.black),
       borderRadius: BorderRadius.circular(8),
     );
     final border = OutlineInputBorder(
-      borderSide: BorderSide(
-        color: theme?.borderColor ?? Colors.black,
-      ),
+      borderSide: BorderSide(color: theme?.borderColor ?? Colors.black),
       borderRadius: BorderRadius.circular(8),
     );
 
@@ -136,10 +135,7 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
             padding: const EdgeInsets.only(bottom: 15),
             child: Text(
               widget.label ?? '',
-              style: const TextStyle(
-                color: Color(0xFF464255),
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Color(0xFF464255), fontSize: 12),
             ),
           ),
         ),
@@ -152,7 +148,7 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
                       color: const Color(0xFF000000).withValues(alpha: 0.1),
                       offset: const Offset(0, 7),
                       blurRadius: 9,
-                    )
+                    ),
                   ]
                 : null,
           ),
@@ -176,7 +172,18 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: widget.prefixIcon,
                     ),
-              prefixIconConstraints: const BoxConstraints(),
+              suffixIcon: widget.suffixIcon == null
+                  ? null
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: widget.suffixIcon,
+                    ),
+              suffixIconConstraints: widget.suffixIcon == null
+                  ? null
+                  : const BoxConstraints(),
+              prefixIconConstraints: widget.prefixIcon == null
+                  ? null
+                  : const BoxConstraints(),
               contentPadding: const EdgeInsets.all(16),
               border: hasError ? errorBorder : border,
               enabledBorder: hasError ? errorBorder : border,
@@ -192,10 +199,7 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
             padding: const EdgeInsets.only(top: 8),
             child: Text(
               errorText ?? '',
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFFFF5B5B),
-              ),
+              style: const TextStyle(fontSize: 12, color: Color(0xFFFF5B5B)),
             ),
           ),
         ),

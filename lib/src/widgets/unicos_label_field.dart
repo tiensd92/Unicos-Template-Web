@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unicos_template/src/apprivals/apprivals.dart';
 
 import '../resources/resources.dart';
 import '../themes/themes.dart';
@@ -62,6 +63,19 @@ class UnicosLabelField extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  factory UnicosLabelField.lock(
+    String label, {
+    Key? key,
+    required String value,
+  }) {
+    return UnicosLabelField(
+      label,
+      key: key,
+      value: value,
+      suffixIcon: UnicosDrawable.lockIcon.svg(),
     );
   }
 }
