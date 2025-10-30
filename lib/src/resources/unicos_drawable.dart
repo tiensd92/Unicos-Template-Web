@@ -9,4 +9,5 @@ class UnicosDrawable {
   static const boxUncheckIcon = '$_pathIcon/box_uncheck.svg';
   static const arrowRightIcon = '$_pathIcon/arrow_right.svg';
   static const lockIcon = '$_pathIcon/lock.svg';
+  static const backIcon = '$_pathIcon/back.svg';
 }

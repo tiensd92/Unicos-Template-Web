@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../resources/resources.dart';
+
 class UnicosHeaderPage extends StatelessWidget {
   final UnicosHeaderPageViewModel viewModel;
   final bool hasNavigation;
@@ -46,16 +48,13 @@ class UnicosHeaderPage extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF464255),
+                    color: UnicosColor.darkBody,
                   ),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const CircleAvatar(
-                      radius: 38,
-                      child: Placeholder(),
-                    ),
+                    const CircleAvatar(radius: 38, child: Placeholder()),
                     const SizedBox(width: 24),
                     Column(
                       mainAxisSize: MainAxisSize.min,

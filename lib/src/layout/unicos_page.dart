@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../resources/resources.dart';
 import '../widgets/widgets.dart';
 import 'reponsive_layout.dart';
 
@@ -8,8 +9,10 @@ class UnicosPage extends StatelessWidget {
   final Widget? header;
   final Widget? navigation;
   final String titlePage;
-  final UnicosBreadCrumb? breadCrumb;
+  final String? titleSubPage;
+  final String? backButton;
   final EdgeInsets padding;
+  final VoidCallback? onBack;
 
   const UnicosPage({
     super.key,
@@ -17,8 +20,10 @@ class UnicosPage extends StatelessWidget {
     this.header,
     this.navigation,
     required this.titlePage,
-    this.breadCrumb,
+    this.titleSubPage,
+    this.backButton,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
+    this.onBack,
   });
 
   @override
@@ -38,7 +43,7 @@ class UnicosPage extends StatelessWidget {
             : (isMobile || isMedium
                   ? ReponsiveLayout(
                       fixedWidth: 348,
-                      backgroundColor: const Color(0xFFFFFFFF),
+                      backgroundColor: UnicosColor.white,
                       child: navigation!,
                     )
                   : null),
@@ -52,7 +57,36 @@ class UnicosPage extends StatelessWidget {
                 child: Column(
                   children: [
                     ?header,
-                    ?breadCrumb,
+                    if (titleSubPage?.isNotEmpty == true)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 67),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                titleSubPage!,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: UnicosColor.darkBody,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: backButton?.isNotEmpty == true
+                                  ? Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: UnicosButton.back(
+                                        backButton!,
+                                        onPressed: onBack,
+                                      ),
+                                    )
+                                  : SizedBox.shrink(),
+                            ),
+                          ],
+                        ),
+                      ),
                     Flexible(
                       child: SingleChildScrollView(
                         child: Padding(padding: padding, child: body),

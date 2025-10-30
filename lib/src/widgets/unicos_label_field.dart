@@ -20,7 +20,7 @@ class UnicosLabelField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.value,
-    this.backgroundColor = UnicosColor.dartGrey1,
+    this.backgroundColor = UnicosColor.darkGrey1,
   });
 
   @override

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:unicos_template/unicos_template.dart';
+
+import '../resources/resources.dart';
 
 class UnicosButton extends StatelessWidget {
   final Widget child;
@@ -17,10 +20,7 @@ class UnicosButton extends StatelessWidget {
     this.onPressed,
     this.height,
     this.width,
-    this.padding = const EdgeInsets.symmetric(
-      vertical: 7,
-      horizontal: 15,
-    ),
+    this.padding = const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
   });
 
   @override
@@ -38,9 +38,7 @@ class UnicosButton extends StatelessWidget {
           surfaceTintColor: color,
           elevation: 0,
           padding: padding,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: child,
       ),
@@ -74,10 +72,7 @@ class UnicosButton extends StatelessWidget {
         children: [
           icon,
           const SizedBox(width: 10),
-          Text(
-            label,
-            style: style,
-          )
+          Text(label, style: style),
         ],
       ),
     );
@@ -102,10 +97,7 @@ class UnicosButton extends StatelessWidget {
       disableColor: disableColor,
       width: width,
       padding: padding,
-      child: Text(
-        label,
-        style: style,
-      ),
+      child: Text(label, style: style),
     );
   }
 
@@ -137,6 +129,29 @@ class UnicosButton extends StatelessWidget {
       label: label,
       onPressed: onPressed,
       style: style,
+    );
+  }
+
+  factory UnicosButton.back(String label, {VoidCallback? onPressed}) {
+    return UnicosButton(
+      color: UnicosColor.darkGrey7,
+      onPressed: onPressed,
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Row(
+        spacing: 14,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          UnicosDrawable.backIcon.svg(),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: UnicosColor.darkBody,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
