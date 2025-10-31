@@ -40,9 +40,11 @@ class UnicosForm extends StatelessWidget {
           children.forEachIndexed((index, child) {
             if (expandedColumns?.contains(index) == true) {
               rows.add(child);
-            } else if (rows.isEmpty || rows.last is! List<Widget>) {
+            } else if (rows.isEmpty ||
+                rows.last is! List<Widget> ||
+                (rows.last as List<Widget>).length == column) {
               rows.add([child]);
-            } else if ((rows.last as List<Widget>).length < column) {
+            } else {
               rows.last.add(child);
             }
           });
@@ -56,10 +58,7 @@ class UnicosForm extends StatelessWidget {
                 if (e is List<Widget>) {
                   return Row(
                     spacing: 17,
-                    children: List.generate(
-                      e.length,
-                      (index) => Expanded(child: e[index]),
-                    ),
+                    children: e.map((e) => Expanded(child: e)).toList(),
                   );
                 }
 
@@ -70,6 +69,7 @@ class UnicosForm extends StatelessWidget {
         }
 
         final child = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 17,
           mainAxisSize: MainAxisSize.min,
           children: [

@@ -120,6 +120,22 @@ class UnicosText extends StatelessWidget {
     );
   }
 
+  factory UnicosText.regular12(
+    String text, {
+    Color color = UnicosColor.darkBody,
+    int? maxLines,
+    String? toolTipText,
+  }) {
+    return UnicosText(
+      text,
+      fontSize: 12,
+      color: color,
+      toolTipText: toolTipText,
+      fontWeight: FontWeight.w400,
+      maxLines: maxLines,
+    );
+  }
+
   factory UnicosText.regular40(
     String text, {
     Color color = UnicosColor.darkBody,

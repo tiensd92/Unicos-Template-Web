@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unicos_template/unicos_template.dart';
 
-import '../resources/resources.dart';
-
 class UnicosButton extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
