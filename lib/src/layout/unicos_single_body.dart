@@ -41,8 +41,10 @@ class UnicosSingleBody extends StatelessWidget {
       );
     }
 
-    return SingleChildScrollView(
-      child: widget,
+    return SelectionArea(
+      child: SingleChildScrollView(
+        child: widget,
+      ),
     );
   }
 }

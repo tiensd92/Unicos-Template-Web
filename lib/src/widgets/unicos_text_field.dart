@@ -11,6 +11,8 @@ class UnicosTextField extends FormField<String> {
   final String? label;
   final FocusNode? focusNode;
   final bool readOnly;
+  final int? maxLines;
+  final int? minLines;
 
   UnicosTextField({
     super.key,
@@ -23,6 +25,8 @@ class UnicosTextField extends FormField<String> {
     super.validator,
     this.controller,
     this.readOnly = false,
+    this.maxLines,
+    this.minLines,
   }) : super(
          builder: (state) => _UnicosTextField(
            state: state,
@@ -34,6 +38,8 @@ class UnicosTextField extends FormField<String> {
            label: label,
            focusNode: focusNode,
            readOnly: readOnly,
+           maxLines: maxLines,
+           minLines: minLines,
          ),
        );
 }
@@ -48,6 +54,8 @@ class _UnicosTextField extends StatefulWidget {
   final String? label;
   final FocusNode? focusNode;
   final bool readOnly;
+  final int? maxLines;
+  final int? minLines;
 
   const _UnicosTextField({
     this.controller,
@@ -59,6 +67,8 @@ class _UnicosTextField extends StatefulWidget {
     this.focusNode,
     required this.state,
     this.readOnly = false,
+    this.maxLines,
+    this.minLines,
   });
 
   @override
@@ -158,6 +168,8 @@ class _UnicosTextFieldState extends State<_UnicosTextField> {
             focusNode: _focusNode,
             readOnly: widget.readOnly,
             obscureText: widget.obscureText,
+            maxLines: widget.obscureText ? 1 : widget.maxLines,
+            minLines: widget.minLines ?? 1,
             decoration: InputDecoration(
               hintText: widget.hintText,
               fillColor: Colors.white,

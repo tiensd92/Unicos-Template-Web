@@ -34,68 +34,70 @@ class UnicosPage extends StatelessWidget {
     final isMedium = size.width > 900 && size.width <= 1200;
     final double height = size.height / scale;
 
-    return Title(
-      title: titlePage,
-      color: const Color(0xFF28C76F),
-      child: Scaffold(
-        drawer: navigation == null
-            ? null
-            : (isMobile || isMedium
-                  ? ReponsiveLayout(
-                      fixedWidth: 348,
-                      backgroundColor: UnicosColor.white,
-                      child: navigation!,
-                    )
-                  : null),
-        body: ReponsiveLayout(
-          child: Row(
-            children: [
-              navigation == null || isMobile || isMedium
-                  ? const SizedBox.shrink()
-                  : SizedBox(width: 348, height: height, child: navigation),
-              Expanded(
-                child: Column(
-                  children: [
-                    ?header,
-                    if (titleSubPage?.isNotEmpty == true)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 67),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                titleSubPage!,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: UnicosColor.darkBody,
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w600,
+    return SelectionArea(
+      child: Title(
+        title: titlePage,
+        color: const Color(0xFF28C76F),
+        child: Scaffold(
+          drawer: navigation == null
+              ? null
+              : (isMobile || isMedium
+                    ? ReponsiveLayout(
+                        fixedWidth: 348,
+                        backgroundColor: UnicosColor.white,
+                        child: navigation!,
+                      )
+                    : null),
+          body: ReponsiveLayout(
+            child: Row(
+              children: [
+                navigation == null || isMobile || isMedium
+                    ? const SizedBox.shrink()
+                    : SizedBox(width: 348, height: height, child: navigation),
+                Expanded(
+                  child: Column(
+                    children: [
+                      ?header,
+                      if (titleSubPage?.isNotEmpty == true)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 67),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  titleSubPage!,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: UnicosColor.darkBody,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: backButton?.isNotEmpty == true
-                                  ? Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: UnicosButton.back(
-                                        backButton!,
-                                        onPressed: onBack,
-                                      ),
-                                    )
-                                  : SizedBox.shrink(),
-                            ),
-                          ],
+                              Expanded(
+                                child: backButton?.isNotEmpty == true
+                                    ? Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: UnicosButton.back(
+                                          backButton!,
+                                          onPressed: onBack,
+                                        ),
+                                      )
+                                    : SizedBox.shrink(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      Flexible(
+                        child: SingleChildScrollView(
+                          child: Padding(padding: padding, child: body),
                         ),
                       ),
-                    Flexible(
-                      child: SingleChildScrollView(
-                        child: Padding(padding: padding, child: body),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
