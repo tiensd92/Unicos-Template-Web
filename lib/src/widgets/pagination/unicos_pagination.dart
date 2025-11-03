@@ -7,36 +7,33 @@ class UnicosPagination extends StatelessWidget {
   final UnicosPaginationUIModel model;
   final ValueChanged<int>? onToPage;
 
-  const UnicosPagination({
-    super.key,
-    required this.model,
-    this.onToPage,
-  });
+  const UnicosPagination({super.key, required this.model, this.onToPage});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 50,
-          height: 50,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: const Color(0xFFB9BBBD),
+        Visibility(
+          visible: model.current != model.start,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Container(
+              width: 50,
+              height: 50,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: const Color(0xFFB9BBBD)),
+              ),
+              child: UnicosDrawable.prevIcon.svg(),
             ),
           ),
-          child: UnicosDrawable.prevIcon.svg(),
         ),
-        const SizedBox(width: 10),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: const Color(0xFFB9BBBD),
-            ),
+            border: Border.all(color: const Color(0xFFB9BBBD)),
           ),
           child: Row(
             children: List.generate(model.end - model.start + 1, (index) {
@@ -86,18 +83,21 @@ class UnicosPagination extends StatelessWidget {
             }),
           ),
         ),
-        const SizedBox(width: 10),
-        Container(
-          width: 50,
-          height: 50,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: const Color(0xFFB9BBBD),
+        Visibility(
+          visible: model.current != model.end,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Container(
+              width: 50,
+              height: 50,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: const Color(0xFFB9BBBD)),
+              ),
+              child: UnicosDrawable.nextIcon.svg(),
             ),
           ),
-          child: UnicosDrawable.nextIcon.svg(),
         ),
       ],
     );

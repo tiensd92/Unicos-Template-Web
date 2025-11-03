@@ -5,9 +5,7 @@ class UnicosTableDataSource extends DataGridSource {
   final List<String> labels;
 
   UnicosTableDataSource({required this.data, required this.labels})
-    : assert(labels.isNotEmpty),
-      assert(data.isNotEmpty),
-      assert(data.first.cells.length == labels.length);
+    : assert(labels.isNotEmpty);
 
   @override
   List<DataGridRow> get rows => data

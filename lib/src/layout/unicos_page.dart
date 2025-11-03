@@ -93,6 +93,7 @@ class UnicosPage extends StatelessWidget {
                           child: Padding(padding: padding, child: body),
                         ),
                       ),
+                      SizedBox(height: 24),
                     ],
                   ),
                 ),
