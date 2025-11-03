@@ -18,8 +18,8 @@ class UnicosCheckBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final checkBox = isChecked
-        ? UnicosDrawable.boxCheckedIcon.svg()
-        : UnicosDrawable.boxUncheckIcon.svg();
+        ? UnicosDrawable.boxCheckedIcon.svg(height: 20)
+        : UnicosDrawable.boxUncheckIcon.svg(height: 20);
 
     return GestureDetector(
       onTap: () {
@@ -27,6 +27,7 @@ class UnicosCheckBox extends StatelessWidget {
       },
       child: text?.isNotEmpty == true
           ? Row(
+              mainAxisSize: MainAxisSize.min,
               spacing: 8,
               children: [
                 checkBox,
@@ -40,7 +41,7 @@ class UnicosCheckBox extends StatelessWidget {
                 ),
               ],
             )
-          : checkBox,
+          :  checkBox,
     );
   }
 }

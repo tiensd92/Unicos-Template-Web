@@ -26,7 +26,7 @@ class UnicosTableDataSource extends DataGridSource {
                 ),
               );
             } else if (e is Widget) {
-              child = Padding(padding: const EdgeInsets.all(15), child: e);
+              child = Padding(padding: EdgeInsets.all(8), child: e,);
             } else {
               child = const SizedBox.shrink();
             }
