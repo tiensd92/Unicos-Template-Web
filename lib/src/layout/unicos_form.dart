@@ -57,6 +57,7 @@ class UnicosForm extends StatelessWidget {
 
                 if (e is List<Widget>) {
                   return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 17,
                     children: e.map((e) => Expanded(child: e)).toList(),
                   );

@@ -51,7 +51,7 @@ class UnicosLabelField extends StatelessWidget {
                 ),
               Expanded(
                 child: value?.isNotEmpty == true
-                    ? UnicosText.medium14(value ?? '', maxLines: 1)
+                    ? UnicosText.medium14(value ?? '')
                     : Text(value ?? '', style: theme?.hintStyle),
               ),
               if (suffixIcon != null)
