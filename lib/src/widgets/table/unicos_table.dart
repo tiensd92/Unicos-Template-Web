@@ -36,12 +36,16 @@ class UnicosTable extends StatelessWidget {
             ? AlwaysScrollableScrollPhysics()
             : NeverScrollableScrollPhysics(),
         shrinkWrapRows: expanded,
-        frozenColumnsCount: 1,
+        frozenColumnsCount: rows.isEmpty ? 0 : 1,
         headerRowHeight: 40,
         highlightRowOnHover: false,
-        headerGridLinesVisibility: GridLinesVisibility.horizontal,
-        gridLinesVisibility: GridLinesVisibility.horizontal,
-        isScrollbarAlwaysShown: true,
+        headerGridLinesVisibility: rows.isEmpty
+            ? GridLinesVisibility.none
+            : GridLinesVisibility.horizontal,
+        gridLinesVisibility: rows.isEmpty
+            ? GridLinesVisibility.none
+            : GridLinesVisibility.horizontal,
+        isScrollbarAlwaysShown: rows.isNotEmpty,
         onQueryRowHeight: (details) {
           if (details.rowIndex == 0) {
             return 40;
