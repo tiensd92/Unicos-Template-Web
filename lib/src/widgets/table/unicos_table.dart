@@ -6,7 +6,9 @@ class UnicosTable extends StatelessWidget {
   final List<UnicosTableRow> rows;
   final Map<int, TableColumnWidth>? columnWidths;
   final ValueChanged<int>? onToPage;
-  final Map<int, double>? heightRows;
+  final Map<int, int>? rowLines;
+  final double? lineHeight;
+  final bool expanded;
 
   const UnicosTable({
     super.key,
@@ -15,7 +17,9 @@ class UnicosTable extends StatelessWidget {
     this.pagination,
     this.columnWidths,
     this.onToPage,
-    this.heightRows,
+    this.rowLines,
+    this.lineHeight,
+    this.expanded = false,
   });
 
   @override
@@ -28,10 +32,13 @@ class UnicosTable extends StatelessWidget {
       ),
       child: SfDataGrid(
         selectionMode: SelectionMode.none,
-        verticalScrollPhysics: NeverScrollableScrollPhysics(),
-        shrinkWrapRows: true,
+        verticalScrollPhysics: expanded
+            ? AlwaysScrollableScrollPhysics()
+            : NeverScrollableScrollPhysics(),
+        shrinkWrapRows: expanded,
         frozenColumnsCount: 1,
         headerRowHeight: 40,
+        highlightRowOnHover: false,
         headerGridLinesVisibility: GridLinesVisibility.horizontal,
         gridLinesVisibility: GridLinesVisibility.horizontal,
         isScrollbarAlwaysShown: true,
@@ -40,8 +47,14 @@ class UnicosTable extends StatelessWidget {
             return 40;
           }
 
-          if (heightRows?.containsKey(details.rowIndex - 1) == true) {
-            return heightRows?[details.rowIndex - 1] ?? details.rowHeight;
+          if (rowLines?.containsKey(details.rowIndex - 1) == true) {
+            return max(
+              max(
+                (rowLines?[details.rowIndex - 1] ?? 0) * (lineHeight ?? 0),
+                80,
+              ),
+              details.rowHeight,
+            );
           }
 
           return details.rowHeight;
@@ -54,11 +67,14 @@ class UnicosTable extends StatelessWidget {
     if (rows.isEmpty) {
       return UnicosCard(
         padding: EdgeInsets.zero,
-        child: Column(
-          children: [
-            dataGrid,
-            SizedBox(height: 200, child: Center(child: Text('emty data'))),
-          ],
+        child: SizedBox(
+          height: 240,
+          child: Column(
+            children: [
+              dataGrid,
+              SizedBox(height: 200, child: Center(child: Text('emty data'))),
+            ],
+          ),
         ),
       );
     }
@@ -66,7 +82,11 @@ class UnicosTable extends StatelessWidget {
     if (pagination != null) {
       return Column(
         children: [
-          UnicosCard(padding: EdgeInsets.zero, child: dataGrid),
+          expanded
+              ? Expanded(
+                  child: UnicosCard(padding: EdgeInsets.zero, child: dataGrid),
+                )
+              : UnicosCard(padding: EdgeInsets.zero, child: dataGrid),
           Align(
             alignment: Alignment.centerRight,
             child: Padding(
@@ -112,7 +132,7 @@ class UnicosTable extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF464255),
+                color: UnicosColor.darkBody,
               ),
             ),
           ),
@@ -122,13 +142,15 @@ class UnicosTable extends StatelessWidget {
   }
 
   factory UnicosTable.builder({
+    bool expanded = false,
     required List<String> labels,
     UnicosPaginationUIModel? pagination,
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
     Map<int, TableColumnWidth>? columnWidths,
     final ValueChanged<int>? onToPage,
-    final Map<int, double>? heightRows,
+    final Map<int, int>? rowLines,
+    double? lineHeight,
   }) {
     return UnicosTable(
       onToPage: onToPage,
@@ -136,7 +158,9 @@ class UnicosTable extends StatelessWidget {
       rows: List.generate(itemCount, (index) => itemBuilder(index)),
       pagination: pagination,
       columnWidths: columnWidths,
-      heightRows: heightRows,
+      rowLines: rowLines,
+      lineHeight: lineHeight,
+      expanded: expanded,
     );
   }
 }

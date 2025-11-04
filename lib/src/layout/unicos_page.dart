@@ -13,6 +13,7 @@ class UnicosPage extends StatelessWidget {
   final String? backButton;
   final EdgeInsets padding;
   final VoidCallback? onBack;
+  final bool expanded;
 
   const UnicosPage({
     super.key,
@@ -24,6 +25,7 @@ class UnicosPage extends StatelessWidget {
     this.backButton,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
     this.onBack,
+    this.expanded = false,
   });
 
   @override
@@ -89,9 +91,11 @@ class UnicosPage extends StatelessWidget {
                           ),
                         ),
                       Flexible(
-                        child: SingleChildScrollView(
-                          child: Padding(padding: padding, child: body),
-                        ),
+                        child: expanded
+                            ? Padding(padding: padding, child: body)
+                            : SingleChildScrollView(
+                                child: Padding(padding: padding, child: body),
+                              ),
                       ),
                       SizedBox(height: 24),
                     ],

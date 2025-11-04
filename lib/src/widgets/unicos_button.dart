@@ -152,4 +152,27 @@ class UnicosButton extends StatelessWidget {
       ),
     );
   }
+
+  factory UnicosButton.icon({
+    double? width,
+    required Widget icon,
+    VoidCallback? onPressed,
+    Color color = const Color(0xFF00A389),
+    Color disableColor = const Color(0xFFB9BBBD),
+    double? height,
+    EdgeInsets padding = const EdgeInsets.symmetric(
+      vertical: 8,
+      horizontal: 16,
+    ),
+  }) {
+    return UnicosButton(
+      padding: padding,
+      width: width,
+      color: color,
+      disableColor: disableColor,
+      height: height,
+      onPressed: onPressed,
+      child: icon,
+    );
+  }
 }
