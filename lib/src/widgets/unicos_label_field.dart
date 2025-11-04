@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:unicos_template/src/apprivals/apprivals.dart';
 
 import '../resources/resources.dart';
-import '../themes/themes.dart';
 import 'unicos_text.dart';
 
 class UnicosLabelField extends StatelessWidget {
@@ -10,8 +9,10 @@ class UnicosLabelField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String label;
-  final String? value;
+  final Widget value;
   final Color backgroundColor;
+  final EdgeInsets padding;
+  final Widget? trailing;
 
   const UnicosLabelField(
     this.label, {
@@ -19,25 +20,44 @@ class UnicosLabelField extends StatelessWidget {
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
-    this.value,
+    required this.value,
     this.backgroundColor = UnicosColor.darkGrey1,
+    this.padding = const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).extension<UnicosTextFiledTheme>();
-
     return Column(
       spacing: 15,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(color: UnicosColor.darkBody, fontSize: 12),
-        ),
+        trailing == null
+            ? Text(
+                label,
+                style: const TextStyle(
+                  color: UnicosColor.darkBody,
+                  fontSize: 12,
+                ),
+              )
+            : Row(
+                spacing: 6,
+                children: [
+                  Expanded(
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        color: UnicosColor.darkBody,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  trailing!,
+                ],
+              ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          padding: padding,
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(8),
@@ -49,11 +69,7 @@ class UnicosLabelField extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 24),
                   child: prefixIcon,
                 ),
-              Expanded(
-                child: value?.isNotEmpty == true
-                    ? UnicosText.medium14(value ?? '')
-                    : Text(value ?? '', style: theme?.hintStyle),
-              ),
+              Expanded(child: value),
               if (suffixIcon != null)
                 Padding(
                   padding: const EdgeInsets.only(left: 24),
@@ -74,8 +90,24 @@ class UnicosLabelField extends StatelessWidget {
     return UnicosLabelField(
       label,
       key: key,
-      value: value,
+      value: UnicosText.medium14(value),
       suffixIcon: UnicosDrawable.lockIcon.svg(),
+    );
+  }
+
+  factory UnicosLabelField.input(
+    String label, {
+    Key? key,
+    required Widget value,
+    Widget? trailing,
+  }) {
+    return UnicosLabelField(
+      label,
+      key: key,
+      value: value,
+      padding: EdgeInsets.symmetric(vertical: 16),
+      backgroundColor: Colors.transparent,
+      trailing: trailing,
     );
   }
 }

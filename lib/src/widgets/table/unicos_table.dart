@@ -111,13 +111,16 @@ class UnicosTable extends StatelessWidget {
   }) {
     return labels.mapIndexed((index, lb) {
       double minWidth = 200;
+      ColumnWidthMode columnWidthMode = ColumnWidthMode.auto;
 
       if (columnWidths?.containsKey(index) == true) {
         if (columnWidths?[index] is FixedColumnWidth) {
+          columnWidthMode = ColumnWidthMode.fill;
           minWidth = (columnWidths?[index] as FixedColumnWidth).value;
         }
 
         if (columnWidths?[index] is FlexColumnWidth) {
+          columnWidthMode = ColumnWidthMode.auto;
           minWidth = (columnWidths?[index] as FlexColumnWidth).value * 200;
         }
       }
@@ -125,7 +128,8 @@ class UnicosTable extends StatelessWidget {
       return GridColumn(
         autoFitPadding: EdgeInsets.zero,
         columnWidthMode: ColumnWidthMode.fill,
-        width: minWidth,
+        minimumWidth: columnWidthMode == ColumnWidthMode.fill ? minWidth : 200,
+        width: columnWidthMode == ColumnWidthMode.fill ? minWidth : double.nan,
         columnName: lb,
         label: Center(
           child: Tooltip(
