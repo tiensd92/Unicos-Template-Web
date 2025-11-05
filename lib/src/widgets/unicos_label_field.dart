@@ -10,7 +10,8 @@ class UnicosLabelField extends StatelessWidget {
   final Widget? suffixIcon;
   final String label;
   final Widget value;
-  final Color backgroundColor;
+  final Color? backgroundColor;
+  final Color? borderColor;
   final EdgeInsets padding;
   final Widget? trailing;
 
@@ -22,6 +23,7 @@ class UnicosLabelField extends StatelessWidget {
     this.suffixIcon,
     required this.value,
     this.backgroundColor = UnicosColor.darkGrey1,
+    this.borderColor = UnicosColor.darkGrey1,
     this.padding = const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
     this.trailing,
   });
@@ -61,6 +63,9 @@ class UnicosLabelField extends StatelessWidget {
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(8),
+            border: borderColor == null
+                ? null
+                : Border.all(color: borderColor!),
           ),
           child: Row(
             children: [
@@ -105,8 +110,9 @@ class UnicosLabelField extends StatelessWidget {
       label,
       key: key,
       value: value,
-      padding: EdgeInsets.symmetric(vertical: 16),
-      backgroundColor: Colors.transparent,
+      backgroundColor: null,
+      borderColor: null,
+      padding: EdgeInsets.zero,
       trailing: trailing,
     );
   }
