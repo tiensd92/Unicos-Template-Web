@@ -175,4 +175,19 @@ class UnicosButton extends StatelessWidget {
       child: icon,
     );
   }
+
+  factory UnicosButton.squareIconGray({
+    required Widget icon,
+    VoidCallback? onPressed,
+  }) {
+    return UnicosButton(
+      padding: EdgeInsets.zero,
+      width: 40,
+      color: Color(0xFFE5E7EB),
+      disableColor: Color(0xFFE5E7EB),
+      height: 40,
+      onPressed: onPressed,
+      child: icon,
+    );
+  }
 }
