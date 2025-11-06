@@ -90,13 +90,15 @@ class UnicosPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                      Flexible(
-                        child: expanded
-                            ? Padding(padding: padding, child: body)
-                            : SingleChildScrollView(
+                      expanded
+                          ? Expanded(
+                              child: Padding(padding: padding, child: body),
+                            )
+                          : Flexible(
+                              child: SingleChildScrollView(
                                 child: Padding(padding: padding, child: body),
                               ),
-                      ),
+                            ),
                       SizedBox(height: 24),
                     ],
                   ),

@@ -2,10 +2,9 @@ part of 'table.dart';
 
 class UnicosTable extends StatelessWidget {
   final List<String> labels;
-  final UnicosPaginationUIModel? pagination;
+  final UnicosTablePagination? pagination;
   final List<UnicosTableRow> rows;
   final Map<int, TableColumnWidth>? columnWidths;
-  final ValueChanged<int>? onToPage;
   final Map<int, int>? rowLines;
   final double? lineHeight;
   final bool expanded;
@@ -14,12 +13,11 @@ class UnicosTable extends StatelessWidget {
     super.key,
     required this.labels,
     required this.rows,
-    this.pagination,
     this.columnWidths,
-    this.onToPage,
     this.rowLines,
     this.lineHeight,
     this.expanded = false,
+    this.pagination,
   });
 
   @override
@@ -35,7 +33,7 @@ class UnicosTable extends StatelessWidget {
         verticalScrollPhysics: expanded
             ? AlwaysScrollableScrollPhysics()
             : NeverScrollableScrollPhysics(),
-        shrinkWrapRows: expanded,
+        shrinkWrapRows: !expanded,
         frozenColumnsCount: rows.isEmpty ? 0 : 1,
         headerRowHeight: 40,
         highlightRowOnHover: false,
@@ -69,40 +67,47 @@ class UnicosTable extends StatelessWidget {
     );
 
     if (rows.isEmpty) {
-      return UnicosCard(
-        padding: EdgeInsets.zero,
-        child: SizedBox(
-          height: 240,
-          child: Column(
-            children: [
-              dataGrid,
-              SizedBox(height: 200, child: Center(child: Text('emty data'))),
-            ],
+      return Align(
+        alignment: Alignment.topCenter,
+        child: UnicosCard(
+          padding: EdgeInsets.zero,
+          child: SizedBox(
+            height: 240,
+            child: Column(
+              children: [
+                SizedBox(height: 40, child: dataGrid),
+                Expanded(child: Center(child: Text('emty data'))),
+              ],
+            ),
           ),
         ),
       );
     }
 
+    final table = UnicosCard(padding: EdgeInsets.zero, child: dataGrid);
+
     if (pagination != null) {
       return Column(
         children: [
-          expanded
-              ? Expanded(
-                  child: UnicosCard(padding: EdgeInsets.zero, child: dataGrid),
-                )
-              : UnicosCard(padding: EdgeInsets.zero, child: dataGrid),
+          expanded ? Expanded(child: table) : table,
           Align(
             alignment: Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.only(top: 40),
-              child: UnicosPagination(onToPage: onToPage, model: pagination!),
+              child: UnicosPagination(
+                onToPage: pagination?.onToPage,
+                onToEnd: pagination?.onToEnd,
+                onToStart: pagination?.onToStart,
+                current: pagination?.current ?? 1,
+                total: pagination?.total ?? 1,
+              ),
             ),
           ),
         ],
       );
     }
 
-    return UnicosCard(padding: EdgeInsets.zero, child: dataGrid);
+    return table;
   }
 
   List<GridColumn> _generateColumns({
@@ -152,16 +157,14 @@ class UnicosTable extends StatelessWidget {
   factory UnicosTable.builder({
     bool expanded = false,
     required List<String> labels,
-    UnicosPaginationUIModel? pagination,
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
     Map<int, TableColumnWidth>? columnWidths,
-    final ValueChanged<int>? onToPage,
     final Map<int, int>? rowLines,
     double? lineHeight,
+    UnicosTablePagination? pagination,
   }) {
     return UnicosTable(
-      onToPage: onToPage,
       labels: labels,
       rows: List.generate(itemCount, (index) => itemBuilder(index)),
       pagination: pagination,
