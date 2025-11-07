@@ -4,7 +4,6 @@ class UnicosCard extends StatelessWidget {
   final Widget child;
   final Color? borderColor;
   final EdgeInsets padding;
-  final bool hasScroll;
   final Color? color;
   final BorderRadiusGeometry? borderRadius;
 
@@ -13,7 +12,6 @@ class UnicosCard extends StatelessWidget {
     required this.child,
     this.padding = const EdgeInsets.all(24),
     this.borderColor,
-    this.hasScroll = false,
     this.color,
     this.borderRadius,
   });
@@ -33,7 +31,7 @@ class UnicosCard extends StatelessWidget {
           : theme.shape,
       child: Padding(
         padding: padding,
-        child: hasScroll ? SingleChildScrollView(child: child) : child,
+        child: child,
       ),
     );
   }

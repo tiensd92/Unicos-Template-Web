@@ -85,7 +85,10 @@ class UnicosForm extends StatelessWidget {
           ],
         );
 
-        return UnicosCard(hasScroll: hasScroll, padding: padding, child: child);
+        return UnicosCard(
+          padding: padding,
+          child: hasScroll ? SingleChildScrollView(child: child) : child,
+        );
       },
     );
   }

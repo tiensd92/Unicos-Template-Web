@@ -89,7 +89,7 @@ class UnicosTable extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: Padding(
-              padding: const EdgeInsets.only(top: 40),
+              padding: const EdgeInsets.only(top: 16),
               child: UnicosPagination(
                 onToPage: pagination?.onToPage,
                 onToEnd: pagination?.onToEnd,

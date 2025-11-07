@@ -16,15 +16,42 @@ class UnicosPagination extends StatelessWidget {
     this.onToStart,
   });
 
+  /// Generates the list of page numbers to display in the sliding window.
+  ///
+  /// This is much more efficient than generating a list from 1 to [total]
+  /// and then taking a sublist.
+  List<int> _getPageNumbers() {
+    // Show a maximum of 5 page numbers in the window
+    const int pagesToShow = 5;
+
+    // If there are 5 or fewer total pages, just show all of them.
+    if (total <= pagesToShow) {
+      return List.generate(total, (index) => index + 1);
+    }
+
+    // Calculate start and end pages for the sliding window
+    int startPage = current - 2;
+    int endPage = current + 2;
+
+    // Adjust window if it's near the start
+    if (startPage <= 0) {
+      startPage = 1;
+      endPage = min(pagesToShow, total);
+    }
+
+    // Adjust window if it's near the end
+    if (endPage > total) {
+      endPage = total;
+      startPage = max(1, total - pagesToShow + 1);
+    }
+
+    // Create the list of pages
+    return List.generate(endPage - startPage + 1, (index) => startPage + index);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final start = max(0, current >= total - 2 ? total - 4 : current - 2);
-    final end = min(current == 1 ? 4 : current + 2, total);
-    List<int> indexs = List.generate(
-      total,
-      (index) => index + 1,
-    ).sublist(start, end);
-    final itemCount = indexs.length;
+    List<int> indexs = _getPageNumbers();
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -64,7 +91,7 @@ class UnicosPagination extends StatelessWidget {
                 },
               );
             },
-            itemCount: itemCount,
+            itemCount: indexs.length,
           ),
         ),
         Visibility(
