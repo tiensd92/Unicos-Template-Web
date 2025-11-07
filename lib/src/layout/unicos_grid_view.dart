@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class UnicosGridView extends StatelessWidget {
   final int itemCount;
   final double? height;
+  final double? width;
   final double? maxHeight;
   final Widget Function(BuildContext, int) itemBuilder;
 
@@ -13,6 +14,7 @@ class UnicosGridView extends StatelessWidget {
     required this.itemBuilder,
     required this.itemCount,
     this.height,
+    this.width,
     this.maxHeight,
   });
 
@@ -24,7 +26,7 @@ class UnicosGridView extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 400,
+          maxCrossAxisExtent: width ?? 400,
           mainAxisSpacing: 40,
           crossAxisSpacing: 40,
           mainAxisExtent: height,
@@ -61,6 +63,7 @@ class UnicosGridView extends StatelessWidget {
   factory UnicosGridView.builder({
     Key? key,
     double? height,
+    double? width,
     double? maxHeight,
     required int itemCount,
     required Widget Function(BuildContext, int) itemBuilder,
@@ -70,6 +73,7 @@ class UnicosGridView extends StatelessWidget {
       itemCount: itemCount,
       itemBuilder: itemBuilder,
       height: height,
+      width: width,
       maxHeight: maxHeight,
     );
   }

@@ -3,15 +3,16 @@ import 'package:loading_indicator/loading_indicator.dart';
 
 class UnicosIndicator extends StatelessWidget {
   static bool isShowing = false;
+  final double dimession;
 
-  const UnicosIndicator({super.key});
+  const UnicosIndicator({super.key, this.dimession = 80});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: SizedBox(
-        width: 80,
-        height: 80,
+        width: dimession,
+        height: dimession,
         child: LoadingIndicator(
           indicatorType: Indicator.ballSpinFadeLoader,
           colors: [

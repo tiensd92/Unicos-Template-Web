@@ -18,6 +18,7 @@ dependencies:
   syncfusion_flutter_datagrid: ^31.2.4
   syncfusion_flutter_core: ^31.2.4
   flutter_simple_multiselect: ^2.1.1
+  cached_network_image: ^3.4.1
   
 dev_dependencies:
   flutter_lints: ^6.0.0
