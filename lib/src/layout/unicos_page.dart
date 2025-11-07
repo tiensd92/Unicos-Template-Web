@@ -82,7 +82,10 @@ class UnicosPage extends StatelessWidget {
                                         alignment: Alignment.centerLeft,
                                         child: UnicosButton.back(
                                           backButton!,
-                                          onPressed: onBack,
+                                          onPressed: () =>
+                                              Navigator.of(context).canPop()
+                                              ? Navigator.of(context).pop()
+                                              : onBack?.call(),
                                         ),
                                       )
                                     : SizedBox.shrink(),

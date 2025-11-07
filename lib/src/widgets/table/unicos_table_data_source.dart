@@ -26,7 +26,7 @@ class UnicosTableDataSource extends DataGridSource {
                 ),
               );
             } else if (e is Widget) {
-              child = Padding(padding: EdgeInsets.all(8), child: e,);
+              child = Padding(padding: EdgeInsets.all(8), child: e);
             } else {
               child = const SizedBox.shrink();
             }
@@ -44,7 +44,12 @@ class UnicosTableDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
       cells: row.getCells().map<Widget>((e) {
-        return e.value;
+        return Container(
+          child: e.value,
+          decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: UnicosColor.darkGrey7)),
+          ),
+        );
       }).toList(),
     );
   }

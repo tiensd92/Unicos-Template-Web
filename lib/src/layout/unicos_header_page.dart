@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../resources/resources.dart';
 
 class UnicosHeaderPage extends StatelessWidget {
-  final UnicosHeaderPageViewModel viewModel;
+  final UnicosHeaderPageViewModel model;
   final bool hasNavigation;
 
   const UnicosHeaderPage({
     super.key,
-    required this.viewModel,
+    required this.model,
     this.hasNavigation = false,
   });
 
@@ -43,12 +43,16 @@ class UnicosHeaderPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  viewModel.page,
-                  style: const TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w600,
-                    color: UnicosColor.darkBody,
+                Expanded(
+                  child: Text(
+                    model.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w600,
+                      color: UnicosColor.darkBody,
+                    ),
                   ),
                 ),
                 Row(
@@ -61,7 +65,7 @@ class UnicosHeaderPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          viewModel.nameDisplay,
+                          model.nameDisplay,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -70,7 +74,7 @@ class UnicosHeaderPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 7),
                         Text(
-                          viewModel.position,
+                          model.position,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFFA2A2A2),
@@ -94,13 +98,13 @@ class UnicosHeaderPageViewModel {
   final String nameDisplay;
   final String position;
   final String avatar;
-  final String page;
+  final String title;
 
   UnicosHeaderPageViewModel({
     required this.nameDisplay,
     required this.position,
     required this.avatar,
-    required this.page,
+    required this.title,
   });
 }
 

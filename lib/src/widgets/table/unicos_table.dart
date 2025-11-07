@@ -37,12 +37,8 @@ class UnicosTable extends StatelessWidget {
         frozenColumnsCount: rows.isEmpty ? 0 : 1,
         headerRowHeight: 40,
         highlightRowOnHover: false,
-        headerGridLinesVisibility: rows.isEmpty
-            ? GridLinesVisibility.none
-            : GridLinesVisibility.horizontal,
-        gridLinesVisibility: rows.isEmpty
-            ? GridLinesVisibility.none
-            : GridLinesVisibility.horizontal,
+        headerGridLinesVisibility: GridLinesVisibility.none,
+        gridLinesVisibility: GridLinesVisibility.none,
         isScrollbarAlwaysShown: rows.isNotEmpty,
         onQueryRowHeight: (details) {
           if (details.rowIndex == 0) {
@@ -55,11 +51,11 @@ class UnicosTable extends StatelessWidget {
                 (rowLines?[details.rowIndex - 1] ?? 0) * (lineHeight ?? 0),
                 80,
               ),
-              details.rowHeight,
+              lineHeight ?? details.rowHeight,
             );
           }
 
-          return details.rowHeight;
+          return lineHeight ?? details.rowHeight;
         },
         columns: _generateColumns(labels: labels, columnWidths: columnWidths),
         source: UnicosTableDataSource(data: rows, labels: labels),
