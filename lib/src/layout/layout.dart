@@ -7,3 +7,4 @@ export 'dialog/dialog.dart';
 export 'unicos_form.dart';
 export 'menu_popup/menu_popup.dart';
 export 'unicos_grid_view.dart';
+export 'unicos_not_found_page.dart';

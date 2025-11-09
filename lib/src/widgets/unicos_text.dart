@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/link.dart';
 
 import '../resources/resources.dart';
 
@@ -9,6 +10,7 @@ class UnicosText extends StatelessWidget {
   final FontWeight? fontWeight;
   final int? maxLines;
   final String? toolTipText;
+  final bool isLink;
 
   const UnicosText(
     this.text, {
@@ -18,6 +20,7 @@ class UnicosText extends StatelessWidget {
     this.fontWeight,
     this.maxLines,
     this.toolTipText,
+    this.isLink = false,
   });
 
   @override
@@ -33,6 +36,10 @@ class UnicosText extends StatelessWidget {
       ),
     );
 
+    if (isLink && toolTipText?.isNotEmpty == true) {
+      return Link(uri: Uri.parse(toolTipText!), builder: (_, _) => textWidget);
+    }
+
     if (toolTipText?.isNotEmpty != true) {
       return textWidget;
     }
@@ -45,10 +52,12 @@ class UnicosText extends StatelessWidget {
     String? toolTipText,
     Color color = UnicosColor.darkBody,
     int? maxLines,
+    bool isLink = false,
   }) {
     return UnicosText(
       text,
       fontSize: 18,
+      isLink: isLink,
       toolTipText: toolTipText,
       color: color,
       fontWeight: FontWeight.w500,
@@ -61,10 +70,12 @@ class UnicosText extends StatelessWidget {
     String? toolTipText,
     Color color = UnicosColor.darkBody,
     int? maxLines,
+    bool isLink = false,
   }) {
     return UnicosText(
       text,
       fontSize: 24,
+      isLink: isLink,
       toolTipText: toolTipText,
       color: color,
       fontWeight: FontWeight.w500,
@@ -77,10 +88,12 @@ class UnicosText extends StatelessWidget {
     String? toolTipText,
     Color color = UnicosColor.darkBody,
     int? maxLines,
+    bool isLink = false,
   }) {
     return UnicosText(
       text,
       fontSize: 14,
+      isLink: isLink,
       toolTipText: toolTipText,
       color: color,
       fontWeight: FontWeight.w500,
@@ -93,11 +106,13 @@ class UnicosText extends StatelessWidget {
     Color color = UnicosColor.darkBody,
     int? maxLines,
     String? toolTipText,
+    bool isLink = false,
   }) {
     return UnicosText(
       text,
       fontSize: 18,
       color: color,
+      isLink: isLink,
       toolTipText: toolTipText,
       fontWeight: FontWeight.w600,
       maxLines: maxLines,
@@ -109,11 +124,13 @@ class UnicosText extends StatelessWidget {
     Color color = UnicosColor.darkBody,
     int? maxLines,
     String? toolTipText,
+    bool isLink = false,
   }) {
     return UnicosText(
       text,
       fontSize: 14,
       color: color,
+      isLink: isLink,
       toolTipText: toolTipText,
       fontWeight: FontWeight.w400,
       maxLines: maxLines,
@@ -125,11 +142,13 @@ class UnicosText extends StatelessWidget {
     Color color = UnicosColor.darkBody,
     int? maxLines,
     String? toolTipText,
+    bool isLink = false,
   }) {
     return UnicosText(
       text,
       fontSize: 12,
       color: color,
+      isLink: isLink,
       toolTipText: toolTipText,
       fontWeight: FontWeight.w400,
       maxLines: maxLines,
@@ -141,9 +160,11 @@ class UnicosText extends StatelessWidget {
     Color color = UnicosColor.darkBody,
     int? maxLines,
     String? toolTipText,
+    bool isLink = false,
   }) {
     return UnicosText(
       text,
+      isLink: isLink,
       fontSize: 40,
       color: color,
       toolTipText: toolTipText,

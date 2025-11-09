@@ -12,7 +12,9 @@ class UnicosImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
-      fit: BoxFit.contain,
+      width: 1039,
+      height: 28800,
+      fit: BoxFit.cover,
       errorWidget: (_, _, _) => Placeholder(),
       placeholder: (_, _) => Center(child: UnicosIndicator(dimession: 30)),
     );
