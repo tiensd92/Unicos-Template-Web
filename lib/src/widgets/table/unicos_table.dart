@@ -4,7 +4,7 @@ class UnicosTable extends StatelessWidget {
   final List<String> labels;
   final UnicosTablePagination? pagination;
   final List<UnicosTableRow> rows;
-  final Map<int, TableColumnWidth>? columnWidths;
+  final Map<String, TableColumnWidth>? columnWidths;
   final Map<int, int>? rowLines;
   final double? lineHeight;
   final bool expanded;
@@ -107,22 +107,22 @@ class UnicosTable extends StatelessWidget {
   }
 
   List<GridColumn> _generateColumns({
-    Map<int, TableColumnWidth>? columnWidths,
+    Map<String, TableColumnWidth>? columnWidths,
     required List<String> labels,
   }) {
-    return labels.mapIndexed((index, lb) {
+    return labels.map((lb) {
       double minWidth = 200;
       ColumnWidthMode columnWidthMode = ColumnWidthMode.auto;
 
-      if (columnWidths?.containsKey(index) == true) {
-        if (columnWidths?[index] is FixedColumnWidth) {
+      if (columnWidths?.containsKey(lb) == true) {
+        if (columnWidths?[lb] is FixedColumnWidth) {
           columnWidthMode = ColumnWidthMode.fill;
-          minWidth = (columnWidths?[index] as FixedColumnWidth).value;
+          minWidth = (columnWidths?[lb] as FixedColumnWidth).value;
         }
 
-        if (columnWidths?[index] is FlexColumnWidth) {
+        if (columnWidths?[lb] is FlexColumnWidth) {
           columnWidthMode = ColumnWidthMode.auto;
-          minWidth = (columnWidths?[index] as FlexColumnWidth).value * 200;
+          minWidth = (columnWidths?[lb] as FlexColumnWidth).value * 200;
         }
       }
 
@@ -155,7 +155,7 @@ class UnicosTable extends StatelessWidget {
     required List<String> labels,
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
-    Map<int, TableColumnWidth>? columnWidths,
+    Map<String, TableColumnWidth>? columnWidths,
     final Map<int, int>? rowLines,
     double? lineHeight,
     UnicosTablePagination? pagination,
