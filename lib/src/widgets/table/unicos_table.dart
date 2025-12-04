@@ -4,24 +4,25 @@ class UnicosTable extends StatelessWidget {
   final List<String> labels;
   final UnicosTablePagination? pagination;
   final List<UnicosTableRow> rows;
-  final Map<String, TableColumnWidth>? columnWidths;
+  final Map<String, double>? columnFixedWidths;
   final Map<int, int>? rowLines;
-  final double? lineHeight;
+  final double? minRownHeight;
   final bool expanded;
 
   const UnicosTable({
     super.key,
     required this.labels,
     required this.rows,
-    this.columnWidths,
+    this.columnFixedWidths,
     this.rowLines,
-    this.lineHeight,
+    this.minRownHeight,
     this.expanded = false,
     this.pagination,
   });
 
   @override
   Widget build(BuildContext context) {
+    final fixedMinRowHeight = 40;
     final dataGrid = SfDataGridTheme(
       data: SfDataGridThemeData(
         gridLineStrokeWidth: 1,
@@ -46,18 +47,22 @@ class UnicosTable extends StatelessWidget {
           }
 
           if (rowLines?.containsKey(details.rowIndex - 1) == true) {
-            return max(
+            final rowHeight = max(
               max(
-                (rowLines?[details.rowIndex - 1] ?? 0) * (lineHeight ?? 0),
+                (rowLines?[details.rowIndex - 1] ?? 0) * fixedMinRowHeight,
                 80,
               ),
-              lineHeight ?? details.rowHeight,
+              fixedMinRowHeight,
             );
+            return max(rowHeight.toDouble(), (minRownHeight ?? fixedMinRowHeight).toDouble());
           }
 
-          return lineHeight ?? details.rowHeight;
+          return minRownHeight ?? details.rowHeight;
         },
-        columns: _generateColumns(labels: labels, columnWidths: columnWidths),
+        columns: _generateColumns(
+          labels: labels,
+          columnFixedWidths: columnFixedWidths,
+        ),
         source: UnicosTableDataSource(data: rows, labels: labels),
       ),
     );
@@ -107,23 +112,16 @@ class UnicosTable extends StatelessWidget {
   }
 
   List<GridColumn> _generateColumns({
-    Map<String, TableColumnWidth>? columnWidths,
+    Map<String, double>? columnFixedWidths,
     required List<String> labels,
   }) {
     return labels.map((lb) {
       double minWidth = 200;
       ColumnWidthMode columnWidthMode = ColumnWidthMode.auto;
 
-      if (columnWidths?.containsKey(lb) == true) {
-        if (columnWidths?[lb] is FixedColumnWidth) {
-          columnWidthMode = ColumnWidthMode.fill;
-          minWidth = (columnWidths?[lb] as FixedColumnWidth).value;
-        }
-
-        if (columnWidths?[lb] is FlexColumnWidth) {
-          columnWidthMode = ColumnWidthMode.auto;
-          minWidth = (columnWidths?[lb] as FlexColumnWidth).value * 200;
-        }
+      if (columnFixedWidths?.containsKey(lb) == true) {
+        columnWidthMode = ColumnWidthMode.fill;
+        minWidth = columnFixedWidths?[lb] ?? minWidth;
       }
 
       return GridColumn(
@@ -155,18 +153,18 @@ class UnicosTable extends StatelessWidget {
     required List<String> labels,
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
-    Map<String, TableColumnWidth>? columnWidths,
+    Map<String, double>? columnFixedWidths,
     final Map<int, int>? rowLines,
-    double? lineHeight,
+    double? minRownHeight,
     UnicosTablePagination? pagination,
   }) {
     return UnicosTable(
       labels: labels,
       rows: List.generate(itemCount, (index) => itemBuilder(index)),
       pagination: pagination,
-      columnWidths: columnWidths,
+      columnFixedWidths: columnFixedWidths,
       rowLines: rowLines,
-      lineHeight: lineHeight,
+      minRownHeight: minRownHeight,
       expanded: expanded,
     );
   }
