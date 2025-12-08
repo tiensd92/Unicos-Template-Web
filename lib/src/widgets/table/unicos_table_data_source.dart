@@ -53,4 +53,9 @@ class UnicosTableDataSource extends DataGridSource {
       }).toList(),
     );
   }
+
+  @override
+  int compare(DataGridRow? a, DataGridRow? b, SortColumnDetails sortColumn) {
+    return -1;
+  }
 }

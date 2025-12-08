@@ -5,6 +5,7 @@ class UnicosTable extends StatelessWidget {
   final UnicosTablePagination? pagination;
   final List<UnicosTableRow> rows;
   final Map<String, double>? columnFixedWidths;
+  final Map<String, DataGridSortDirection?>? allowSortings;
   final Map<int, int>? rowLines;
   final double? minRownHeight;
   final bool expanded;
@@ -22,10 +23,28 @@ class UnicosTable extends StatelessWidget {
     this.pagination,
     this.isLoading = false,
     this.loadingBuilder,
+    this.allowSortings,
   });
 
   @override
   Widget build(BuildContext context) {
+    final dataSource = UnicosTableDataSource(data: rows, labels: labels);
+
+    for (final allowSorting
+        in allowSortings?.entries ??
+            List<MapEntry<String, DataGridSortDirection?>>.empty()) {
+      if (allowSorting.value != null) {
+        dataSource.sortedColumns.add(
+          SortColumnDetails(
+            name: allowSorting.key,
+            sortDirection: allowSorting.value!,
+          ),
+        );
+      }
+    }
+
+    dataSource.sort();
+
     final fixedMinRowHeight = 48;
     final dataGrid = SfDataGridTheme(
       data: SfDataGridThemeData(
@@ -35,6 +54,8 @@ class UnicosTable extends StatelessWidget {
       ),
       child: SfDataGrid(
         selectionMode: SelectionMode.none,
+        allowSorting: true,
+        allowMultiColumnSorting: true,
         verticalScrollPhysics: expanded
             ? AlwaysScrollableScrollPhysics()
             : NeverScrollableScrollPhysics(),
@@ -58,7 +79,10 @@ class UnicosTable extends StatelessWidget {
               ),
               fixedMinRowHeight,
             );
-            return max(rowHeight.toDouble(), (minRownHeight ?? fixedMinRowHeight).toDouble());
+            return max(
+              rowHeight.toDouble(),
+              (minRownHeight ?? fixedMinRowHeight).toDouble(),
+            );
           }
 
           return minRownHeight ?? details.rowHeight;
@@ -67,7 +91,10 @@ class UnicosTable extends StatelessWidget {
           labels: labels,
           columnFixedWidths: columnFixedWidths,
         ),
-        source: UnicosTableDataSource(data: rows, labels: labels),
+        onColumnSortChanged: (newSortedColumn, oldSortedColumn) {},
+        allowTriStateSorting: true,
+        sortingGestureType: SortingGestureType.doubleTap,
+        source: dataSource,
       ),
     );
 
@@ -149,6 +176,7 @@ class UnicosTable extends StatelessWidget {
       }
 
       return GridColumn(
+        allowSorting: allowSortings?.containsKey(lb) ?? false,
         autoFitPadding: EdgeInsets.zero,
         columnWidthMode: ColumnWidthMode.fill,
         minimumWidth: columnWidthMode == ColumnWidthMode.fill ? minWidth : 200,
@@ -180,6 +208,7 @@ class UnicosTable extends StatelessWidget {
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
     Map<String, double>? columnFixedWidths,
+    Map<String, DataGridSortDirection?>? allowSortings,
     final Map<int, int>? rowLines,
     double? minRownHeight,
     UnicosTablePagination? pagination,
@@ -194,6 +223,7 @@ class UnicosTable extends StatelessWidget {
       expanded: expanded,
       isLoading: isLoading,
       loadingBuilder: loadingBuilder,
+      allowSortings: allowSortings,
     );
   }
 }
