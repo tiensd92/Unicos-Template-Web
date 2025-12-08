@@ -57,7 +57,7 @@ class UnicosPagination extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Visibility(
-          visible: indexs.last == total ? false : current > 2,
+          visible: indexs.first > 1,
           child: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: _buildActionButton(
@@ -95,7 +95,7 @@ class UnicosPagination extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: indexs.last == total ? false : current < total - 2,
+          visible: indexs.last < total,
           child: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: _buildActionButton(

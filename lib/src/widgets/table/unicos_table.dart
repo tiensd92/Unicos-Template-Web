@@ -8,6 +8,8 @@ class UnicosTable extends StatelessWidget {
   final Map<int, int>? rowLines;
   final double? minRownHeight;
   final bool expanded;
+  final bool isLoading;
+  final Widget? loadingBuilder;
 
   const UnicosTable({
     super.key,
@@ -18,11 +20,13 @@ class UnicosTable extends StatelessWidget {
     this.minRownHeight,
     this.expanded = false,
     this.pagination,
+    this.isLoading = false,
+    this.loadingBuilder,
   });
 
   @override
   Widget build(BuildContext context) {
-    final fixedMinRowHeight = 40;
+    final fixedMinRowHeight = 48;
     final dataGrid = SfDataGridTheme(
       data: SfDataGridThemeData(
         gridLineStrokeWidth: 1,
@@ -66,6 +70,26 @@ class UnicosTable extends StatelessWidget {
         source: UnicosTableDataSource(data: rows, labels: labels),
       ),
     );
+
+    if (isLoading) {
+      return Align(
+        alignment: Alignment.topCenter,
+        child: UnicosCard(
+          padding: EdgeInsets.zero,
+          child: SizedBox(
+            height: 240,
+            child: Column(
+              children: [
+                SizedBox(height: 40, child: dataGrid),
+                Expanded(
+                  child: Center(child: loadingBuilder ?? Text('emty data')),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     if (rows.isEmpty) {
       return Align(
@@ -150,6 +174,8 @@ class UnicosTable extends StatelessWidget {
 
   factory UnicosTable.builder({
     bool expanded = false,
+    bool isLoading = false,
+    Widget? loadingBuilder,
     required List<String> labels,
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
@@ -166,6 +192,8 @@ class UnicosTable extends StatelessWidget {
       rowLines: rowLines,
       minRownHeight: minRownHeight,
       expanded: expanded,
+      isLoading: isLoading,
+      loadingBuilder: loadingBuilder,
     );
   }
 }
