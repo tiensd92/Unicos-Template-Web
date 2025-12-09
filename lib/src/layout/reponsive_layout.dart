@@ -17,7 +17,7 @@ class ReponsiveLayout extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final double scale = size.width >= 600 ? 1 : size.width / 600;
     final double height = size.height / scale;
-    final double width = scale == 1 ? size.width : 600;
+    final double width = scale == 1 ? size.width : (600 / scale);
     return Transform.scale(
       alignment: Alignment.topLeft,
       scale: scale,
