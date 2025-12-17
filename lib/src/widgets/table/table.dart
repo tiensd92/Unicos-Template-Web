@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
