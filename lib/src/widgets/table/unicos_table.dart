@@ -5,12 +5,13 @@ class UnicosTable extends StatelessWidget {
   final UnicosTablePagination? pagination;
   final List<UnicosTableRow> rows;
   final Map<String, double>? columnFixedWidths;
-  final Map<String, DataGridSortDirection?>? allowSortings;
+  final Map<String, bool?>? allowSortings;
   final Map<int, int>? rowLines;
   final double? minRownHeight;
   final bool expanded;
   final bool isLoading;
   final Widget? loadingBuilder;
+  final void Function(String, bool)? onColumnSortChanging;
 
   const UnicosTable({
     super.key,
@@ -24,6 +25,7 @@ class UnicosTable extends StatelessWidget {
     this.isLoading = false,
     this.loadingBuilder,
     this.allowSortings,
+    this.onColumnSortChanging,
   });
 
   @override
@@ -31,13 +33,14 @@ class UnicosTable extends StatelessWidget {
     final dataSource = UnicosTableDataSource(data: rows, labels: labels);
 
     for (final allowSorting
-        in allowSortings?.entries ??
-            List<MapEntry<String, DataGridSortDirection?>>.empty()) {
+        in allowSortings?.entries ?? List<MapEntry<String, bool?>>.empty()) {
       if (allowSorting.value != null) {
         dataSource.sortedColumns.add(
           SortColumnDetails(
             name: allowSorting.key,
-            sortDirection: allowSorting.value!,
+            sortDirection: allowSorting.value == true
+                ? DataGridSortDirection.descending
+                : DataGridSortDirection.ascending,
           ),
         );
       }
@@ -91,7 +94,17 @@ class UnicosTable extends StatelessWidget {
           labels: labels,
           columnFixedWidths: columnFixedWidths,
         ),
-        onColumnSortChanged: (newSortedColumn, oldSortedColumn) {},
+        onColumnSortChanging: (newSortedColumn, oldSortedColumn) {
+          if (newSortedColumn == null) {
+            return false;
+          }
+
+          onColumnSortChanging?.call(
+            newSortedColumn.name,
+            newSortedColumn.sortDirection == DataGridSortDirection.descending,
+          );
+          return false;
+        },
         allowTriStateSorting: true,
         sortingGestureType: SortingGestureType.doubleTap,
         source: dataSource,
@@ -208,10 +221,11 @@ class UnicosTable extends StatelessWidget {
     required UnicosTableRow Function(int) itemBuilder,
     required int itemCount,
     Map<String, double>? columnFixedWidths,
-    Map<String, DataGridSortDirection?>? allowSortings,
+    Map<String, bool?>? allowSortings,
     final Map<int, int>? rowLines,
     double? minRownHeight,
     UnicosTablePagination? pagination,
+    final void Function(String, bool)? onColumnSortChanging,
   }) {
     return UnicosTable(
       labels: labels,
@@ -224,6 +238,7 @@ class UnicosTable extends StatelessWidget {
       isLoading: isLoading,
       loadingBuilder: loadingBuilder,
       allowSortings: allowSortings,
+      onColumnSortChanging: onColumnSortChanging,
     );
   }
 }
