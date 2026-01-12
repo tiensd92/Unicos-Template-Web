@@ -11,7 +11,7 @@ class UnicosTable extends StatelessWidget {
   final bool expanded;
   final bool isLoading;
   final Widget? loadingBuilder;
-  final void Function(String, bool)? onColumnSortChanging;
+  final void Function(String, bool?)? onColumnSortChanging;
 
   const UnicosTable({
     super.key,
@@ -96,6 +96,10 @@ class UnicosTable extends StatelessWidget {
         ),
         onColumnSortChanging: (newSortedColumn, oldSortedColumn) {
           if (newSortedColumn == null) {
+            if (oldSortedColumn != null) {
+              onColumnSortChanging?.call(oldSortedColumn.name, null);
+            }
+
             return false;
           }
 
@@ -225,7 +229,7 @@ class UnicosTable extends StatelessWidget {
     final Map<int, int>? rowLines,
     double? minRownHeight,
     UnicosTablePagination? pagination,
-    final void Function(String, bool)? onColumnSortChanging,
+    final void Function(String, bool?)? onColumnSortChanging,
   }) {
     return UnicosTable(
       labels: labels,

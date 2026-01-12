@@ -24,8 +24,8 @@ class UnicosPage extends StatelessWidget {
     this.titleSubPage,
     this.backButton,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
-    this.onBack,
     this.expanded = false,
+    this.onBack,
   });
 
   @override
@@ -35,6 +35,7 @@ class UnicosPage extends StatelessWidget {
     final isMobile = size.width <= 900;
     final isMedium = size.width > 900 && size.width <= 1200;
     final double height = size.height / scale;
+    final isShowNavigation = isMobile || isMedium;
 
     return SelectionArea(
       child: Title(
@@ -43,7 +44,7 @@ class UnicosPage extends StatelessWidget {
         child: Scaffold(
           drawer: navigation == null
               ? null
-              : (isMobile || isMedium
+              : (isShowNavigation
                     ? ReponsiveLayout(
                         fixedWidth: 348,
                         backgroundColor: UnicosColor.white,
@@ -53,9 +54,15 @@ class UnicosPage extends StatelessWidget {
           body: ReponsiveLayout(
             child: Row(
               children: [
-                navigation == null || isMobile || isMedium
+                navigation == null
                     ? const SizedBox.shrink()
-                    : SizedBox(width: 348, height: height, child: navigation),
+                    : (isShowNavigation
+                          ? const SizedBox.shrink()
+                          : SizedBox(
+                              width: 348,
+                              height: height,
+                              child: navigation,
+                            )),
                 Expanded(
                   child: Column(
                     children: [
@@ -82,10 +89,18 @@ class UnicosPage extends StatelessWidget {
                                         alignment: Alignment.centerLeft,
                                         child: UnicosButton.back(
                                           backButton!,
-                                          onPressed: () =>
-                                              Navigator.of(context).canPop()
-                                              ? Navigator.of(context).pop()
-                                              : onBack?.call(),
+                                          onPressed: () {
+                                            final canPop = Navigator.of(
+                                              context,
+                                            ).canPop();
+
+                                            if (canPop) {
+                                              onBack == null
+                                                  ? Navigator.of(context).pop()
+                                                  : onBack?.call();
+                                              return;
+                                            }
+                                          },
                                         ),
                                       )
                                     : SizedBox.shrink(),
